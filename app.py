@@ -81,11 +81,11 @@ def preprocess(text):
     return " ".join(filtered_tokens)
 
 # Load models and scalers
-churn_feature_model = joblib.load("./model/Churn_Feature_Classifier.joblib")
-churn_feature_scaler = joblib.load("./model/minmax_scaler_for_churn_prediction.joblib")
+churn_feature_model = joblib.load("./models/Churn_Feature_Classifier.joblib")
+churn_feature_scaler = joblib.load("./models/minmax_scaler_for_churn_prediction.joblib")
 
-churn_sentiment_model = joblib.load("./model/Churn_Sentiment_Classifier.joblib")
-churn_sentiment_scaler = joblib.load("./model/scaler_for_sentiment_analysis.joblib")
+churn_sentiment_model = joblib.load("./models/Churn_Sentiment_Classifier.joblib")
+churn_sentiment_scaler = joblib.load("./models/scaler_for_sentiment_analysis.joblib")
 
 # Tabs for different sections
 tab1, tab2 = st.tabs(["Predict Customer Churn", "Feedback Section"])
