@@ -4,73 +4,6 @@ import numpy as np
 import spacy
 import joblib
 
-# Apply custom CSS for theme
-st.markdown(
-    """
-    <style>
-        /* Set background gradient */
-        .main {
-            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
-            font-family: 'Roboto', sans-serif;
-        }
-
-        /* Customize title and headers */
-        .stTitle {
-            color: #005662;
-            font-weight: bold;
-            text-align: center;
-            font-size: 2.5em;
-            padding-bottom: 10px;
-        }
-        
-        .stHeader {
-            color: #005662;
-            font-weight: bold;
-            font-size: 1.5em;
-            margin-top: 20px;
-        }
-
-        /* Style input boxes */
-        .stTextInput > div > input {
-            border: 2px solid #005662;
-            border-radius: 10px;
-            padding: 8px;
-        }
-
-        /* Customize buttons with hover animation */
-        .stButton > button {
-            background-color: #5CDB95;
-            color: white;
-            font-weight: bold;
-            border-radius: 10px;
-            transition: background-color 0.3s ease;
-            border: none;
-            padding: 10px;
-        }
-        
-        .stButton > button:hover {
-            background-color: #379683;
-        }
-
-        /* Tabs styling */
-        .stTabs .stTab {
-            background-color: #edf5e1;
-            border: 2px solid #005662;
-            border-radius: 10px;
-            padding: 5px;
-            margin-top: 10px;
-        }
-        
-        .stTab:hover {
-            background-color: #8ee4af;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-st.title("Customer Churn Prediction with NLP Insights")
-
 # Load SpaCy model
 nlp = spacy.load("en_core_web_lg")
 
@@ -90,7 +23,7 @@ churn_sentiment_scaler = joblib.load("./models/scaler_for_sentiment_analysis.job
 # Tabs for different sections
 tab1, tab2 = st.tabs(["Predict Customer Churn", "Feedback Section"])
 
-# First Tab: Customer Input for Prediction
+# First Tab: Predict Customer Churn Section
 with tab1:
     st.header("Predict Customer Churn")
 
@@ -115,10 +48,13 @@ with tab1:
     col4, col5, col6 = st.columns(3)
     with col4:
         online_security = st.selectbox("Online Security", options=["No", "Yes"], key="os")
+        online_security = 1 if online_security == "Yes" else 0
     with col5:
         tech_support = st.selectbox("Tech Support", options=["No", "Yes"], key="ts")
+        tech_support = 1 if tech_support == "Yes" else 0
     with col6:
         paperless_billing = st.selectbox("Paperless Billing", options=["No", "Yes"], key="pb")
+        paperless_billing = 1 if paperless_billing == "Yes" else 0
 
     col7, col8 = st.columns(2)
     with col7:
@@ -128,24 +64,87 @@ with tab1:
         payment_method = st.selectbox("Payment Method", options=[
             "Electronic check", "Mailed check", "Bank transfer (automatic)", "Credit card (automatic)"
         ], key="pm")
+        payment_method = {
+            "Electronic check": 0, 
+            "Mailed check": 1, 
+            "Bank transfer (automatic)": 2, 
+            "Credit card (automatic)": 3
+        }[payment_method]
 
     # Predict button
     if st.button("Predict"):
-        input_data = [[
-            senior_citizen, partner, dependents, tenure, online_security,
-            tech_support, contract, paperless_billing, payment_method,
-            monthly_charges, total_charges
-        ]]
-        input_df = pd.DataFrame(input_data, columns=[
-            'SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'OnlineSecurity',
-            'TechSupport', 'Contract', 'PaperlessBilling', 'PaymentMethod',
-            'MonthlyCharges', 'TotalCharges'
-        ])
-        input_df[['tenure', 'MonthlyCharges', 'TotalCharges']] = churn_feature_scaler.transform(
-            input_df[['tenure', 'MonthlyCharges', 'TotalCharges']]
-        )
-        prediction = churn_feature_model.predict(input_df.values)
-        st.write("Prediction:", "😢 Customer may leave" if prediction[0] == 1 else "😊 Customer likely to stay")
+        try:
+            # Convert inputs to correct numeric format
+            monthly_charges = float(monthly_charges)
+            tenure = float(tenure)
+            total_charges = float(total_charges)
+            
+            # Prepare the input data
+            input_data = [[
+                senior_citizen, partner, dependents, tenure, online_security,
+                tech_support, contract, paperless_billing, payment_method,
+                monthly_charges, total_charges
+            ]]
+            input_df = pd.DataFrame(input_data, columns=[
+                'SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'OnlineSecurity',
+                'TechSupport', 'Contract', 'PaperlessBilling', 'PaymentMethod',
+                'MonthlyCharges', 'TotalCharges'
+            ])
+            
+            # Scale numeric data
+            input_df[['tenure', 'MonthlyCharges', 'TotalCharges']] = churn_feature_scaler.transform(
+                input_df[['tenure', 'MonthlyCharges', 'TotalCharges']]
+            )
+            
+            # Predict churn
+            prediction = churn_feature_model.predict(input_df.values)
+            st.write("Prediction:", "😢 Customer may leave" if prediction[0] == 1 else "😊 Customer likely to stay")
+        
+        except ValueError:
+            st.error("Please enter valid numeric values for Monthly Charges, Tenure, and Total Charges.")
+    
+    def reverser(data):
+        # Define the columns based on their encoding needs
+        columns_len_2 = ['SeniorCitizen', 'Partner', 'Dependents', 'OnlineSecurity', 'TechSupport', 'PaperlessBilling', 'Churn']
+        columns_len_3 = ['Contract', 'PaymentMethod']
+        
+        # Apply transformations for columns with binary values
+        for col in columns_len_2:
+            if col in data.columns:
+                data[col] = data[col].apply(lambda x: 'No' if x == 0 else 'Yes')
+        
+        # Apply specific mappings for Contract and PaymentMethod columns
+        if 'Contract' in data.columns:
+            data['Contract'] = data['Contract'].map({0: "Month-to-month", 1: "One year", 2: "Two year"})
+        
+        if 'PaymentMethod' in data.columns:
+            data['PaymentMethod'] = data['PaymentMethod'].map({
+                0: "Electronic check",
+                1: "Mailed check",
+                2: "Bank transfer (automatic)",
+                3: "Credit card (automatic)"
+            })
+        
+        return data
+
+    # Load sample dataframe
+    sample_dataframe = pd.read_csv("./Datasets/Ready_data_for_model.csv")
+
+    # Apply reverser function
+    sample_dataframe = reverser(sample_dataframe)
+
+    # Initialize session state for this tab's DataFrame if it doesn’t already exist
+    if "df_sample_tab1" not in st.session_state:
+        st.session_state.df_sample_tab1 = sample_dataframe.sample(5)
+
+    # Display the DataFrame
+    st.dataframe(st.session_state.df_sample_tab1)
+
+    # Refresh button below the DataFrame with a unique key
+    if st.button("Refresh Sample (Tab 1)", key="refresh_sample_tab1"):
+        # Resample 5 rows and update session state
+        st.session_state.df_sample_tab1 = sample_dataframe.sample(5)
+
 
 # Second Tab: Feedback Section
 with tab2:
@@ -154,10 +153,35 @@ with tab2:
     feedback_tenure = st.text_input("Tenure", "0", key="fb_tenure")
     feedback_monthly_charges = st.text_input("Monthly Charges", "0", key="fb_mc")
 
-    if st.button("Submit Feedback"):
-        cleaned_feedback = preprocess(feedback)
-        feedback_vector = nlp(cleaned_feedback).vector
-        feedback_data = np.array([[*feedback_vector, int(feedback_tenure), float(feedback_monthly_charges)]])
-        sentiment_input_scaled = churn_sentiment_scaler.transform(feedback_data)
-        prediction = churn_sentiment_model.predict(sentiment_input_scaled)
-        st.write("Feedback Prediction:", "😢 Customer may leave" if prediction[0] == 1 else "😊 Customer likely to stay")
+    if st.button("Submit Feedback", key="submit_feedback"):
+        try:
+            # Process and transform feedback data
+            cleaned_feedback = preprocess(feedback)
+            feedback_vector = nlp(cleaned_feedback).vector
+            feedback_tenure = float(feedback_tenure)
+            feedback_monthly_charges = float(feedback_monthly_charges)
+
+            feedback_data = np.array([[*feedback_vector, feedback_tenure, feedback_monthly_charges]])
+            sentiment_input_scaled = churn_sentiment_scaler.transform(feedback_data)
+            
+            # Predict feedback sentiment
+            prediction = churn_sentiment_model.predict(sentiment_input_scaled)
+            st.write("Feedback Prediction:", "😢 Customer may leave" if prediction[0] == 1 else "😊 Customer likely to stay")
+        
+        except ValueError:
+            st.error("Please enter valid numeric values for Tenure and Monthly Charges.")
+
+    # Load sample DataFrame for feedback section
+    sample_dataframe_feedback = pd.read_csv("./Datasets/Ready_data_for_model_feedback.csv")
+
+    # Initialize session state for this tab's DataFrame if it doesn’t already exist
+    if "df_sample_tab2" not in st.session_state:
+        st.session_state.df_sample_tab2 = sample_dataframe_feedback.sample(5)
+
+    # Display the DataFrame
+    st.dataframe(st.session_state.df_sample_tab2)
+
+    # Refresh button below the DataFrame with a unique key
+    if st.button("Refresh Sample (Tab 2)", key="refresh_sample_tab2"):
+        # Resample 5 rows and update session state
+        st.session_state.df_sample_tab2 = sample_dataframe_feedback.sample(5)
