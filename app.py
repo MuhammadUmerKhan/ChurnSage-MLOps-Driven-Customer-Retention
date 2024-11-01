@@ -3,11 +3,12 @@ import pandas as pd
 import numpy as np
 import spacy
 import joblib
+import en_core_web_lg
 
 
 st.title("Customer Churn Prediction")
 # Load SpaCy model
-nlp = spacy.load("en_core_web_lg")
+nlp = en_core_web_lg.load()
 
 # Define preprocessing function
 def preprocess(text):
