@@ -10,7 +10,6 @@ This repository contains all the necessary components for analyzing customer chu
 - [Problem Statement](#problem-statement)
 - [Methodology](#methodology)
 - [Data Insights](#data-insights)
-- [Power BI Visuals](#power-bi-visuals)
 - [Key Findings](#key-findings)
 - [References](#references)
 - [Usage Instructions](#usage-instructions)
@@ -64,3 +63,86 @@ Explore profound insights and analytics gleaned from our extensive dataset. Unco
 | Distribution Analysis                        | ![Distribution Analysis](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/distro_analysis.png)   |
 | Security Distribution                        | ![Security Distribution](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/onlien%20analysis.png)|
 | Churn Analysis                               | ![Screenshot](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/churn_analysis.png)          |
+
+
+
+## Usage Instructions
+
+### Getting Started
+
+- **Clone the Repository**
+
+  ```` 
+   git clone https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights.git
+   ````
+
+- Install the project dependencies by running the following command
+
+   ```
+   pip install -r requirements.txt
+   ```
+
+- Navigate through the project's directories and files to get acquainted with its structure.
+
+
+- **Dataset Handling:**
+
+   - Load the dataset using Python, R, or your preferred data analysis tool.
+   - Explore and preprocess data to prepare for churn prediction modeling.
+
+- **Model Development:**
+
+   - Train and evaluate machine learning models to predict customer churn.
+   - Fine-tune models based on performance metrics to optimize predictions.
+
+---
+
+## Running the Project
+
+- **Start the Application:** Execute the following command to run the project.
+
+   ```bash
+   streamlit run app.py
+   ```
+
+**After you have successfully installed and launched the project, you can utilize it to forecast customer churn. Follow these steps to begin:**
+
+- **Access the Web Interface:** Open your web browser and navigate to:
+
+   ```
+   http://localhost:8501/
+   ```
+
+**Upon accessing the interface, you'll encounter a user-friendly web application. Take time to familiarize yourself with its features and explore the various options available for predicting outcomes.**
+
+
+| Details | Prediction |
+|---------|---------|
+| ![Image 1](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/details.png) | ![Image 2](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/prediction.png) |
+
+
+
+- **Input Customer Data:** Refer to the on-screen instructions for guidance on entering customer data into the system. Once entered, explore the prediction feature to forecast churn outcomes based on the data provided.
+  
+- **Analyze Results:** Review the prediction outcomes to gather insights and formulate strategies, such as designing targeted promotions, and effectively applying the project to specific scenarios, such as implementing enticing customer offers.
+  
+---
+
+Experience the deployed [version]() of the Telecom Churn Prediction project!
+
+
+### Dataset Usage:
+
+1. Load the dataset using your preferred programming environment (e.g., Python with Pandas).
+2. Explore and analyze the dataset attributes and patterns.
+3. Utilize the dataset for Telco Customer Churn Classification analysis.
+
+Feel free to adapt the above steps based on your specific use case and programming environment.
+
+---
+##  License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Conclusion
+By leveraging comprehensive churn analysis, robust predictive models, and interactive Power BI visualizations, the telecommunications company can proactively identify at-risk customers, understand churn drivers, and enhance service offerings. This approach fosters customer retention, reduces acquisition costs, and supports sustainable growth. Ultimately, the integration of predictive insights into strategic decision-making enables companies to maintain a competitive edge in a dynamic industry.
