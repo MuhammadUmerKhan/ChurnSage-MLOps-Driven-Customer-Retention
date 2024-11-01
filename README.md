@@ -128,7 +128,7 @@ Explore profound insights and analytics gleaned from our extensive dataset. Unco
   
 ---
 
-Experience the deployed [version]() of the Telecom Churn Prediction project!
+Experience the deployed version of the Telecom Churn Prediction project!
 
 
 ### Dataset Usage:
