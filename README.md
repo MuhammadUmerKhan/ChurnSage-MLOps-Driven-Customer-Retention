@@ -58,52 +58,9 @@ Explore profound insights and analytics gleaned from our extensive dataset. Unco
 
 | Feature                                      | Visualization                                                                                       |
 |----------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| Categorical Features                         | ![Categorical Features](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/Categorical_feature.png)   |
+| Categorical Features                         | ![Categorical Features](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/categorical_feature.png)   |
 | Churn Target Variable                        | ![Churn Target Variable](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/churn_vs_not_churn.png)  |
-| Customer Information                         | ![Customer Information](https://github.com/virajbhutada/Telecom-Customer-Churn-Prediction/assets/143819712/234d902f-f514-4d2f-b28a-6d5813c67909)   |
-| Distribution Analysis                        | ![Distribution Analysis](https://github.com/virajbhutada/Telecom-Customer-Churn-Prediction/assets/143819712/e72dbd50-9c94-4c44-bf89-1b3baa090a64)   |
-| Mean Tenure                                  | ![Mean Tenure](https://github.com/virajbhutada/Telecom-Customer-Churn-Prediction/assets/143819712/0f8feb7e-d723-4061-beb6-62275d6a54b9)         |
-| Churn Tenure Analysis                        | ![Screenshot](https://github.com/virajbhutada/Telecom-Customer-Churn-Prediction/assets/143819712/5942dbb4-47c7-467e-a075-14dc47ca7572)          |
-
----
-
-## Power BI Visuals
-
-Explore interactive Power BI visualizations designed to enhance data exploration and decision-making. Visualize customer churn trends, contract preferences, and revenue impact through intuitive and actionable dashboards.
-
-| Overview and Key Metrics | Attrition Insights |
-|---------------|-------------|
-| ![Overview](https://github.com/virajbhutada/Telecom-Customer-Churn-Prediction/assets/143819712/18855f1b-fefe-4317-bede-fb8219d67e9f) | ![Detailed Insights](https://github.com/virajbhutada/Telecom-Customer-Churn-Prediction/assets/143819712/7c068b03-4cdb-4659-b3e3-c15dc481cd59) |
-| Gain a high-level view of customer churn trends, contract preferences, and revenue impact. This interactive dashboard provides insights into overall churn metrics and key business indicators. | Explore detailed analytics on customer segments, service usage patterns, and churn predictors. This visualization offers a deeper dive into specific data points and trends influencing churn decisions. |
-
----
-
-## Key Findings
-
-### Strategic Insights
-
-- **Customer Segmentation:** Identify high-risk customer segments prone to churn.
-- **Service Optimization:** Evaluate the impact of service features and contract terms on customer retention.
-- **Sentiment Correlation:** Utilize NLP insights to correlate customer sentiment with churn rates, highlighting areas for service improvement.
-- **Financial Impact:** Quantify revenue loss due to churn and explore strategies for revenue recovery.
-
----
-
-## References
-
-- [Average Customer Acquisition Cost by Industry](https://hockeystack.com/blog/average-customer-acquisition-cost-by-industry/)
-- [Subscriber Acquisition Cost Examples](https://www.klipfolio.com/resources/kpi-examples/call-center/subscriber-acquisition-cost)
-- [Understanding Customer Churn Rate](https://www.zendesk.com/in/blog/customer-churn-rate/#georedirect)
-- [Churn Prevention Strategies](https://www.profitwell.com/customer-churn/churn-prevention)
-
----
-
-## Usage Instructions
-
-### Getting Started
-
-- **Clone the Repository**
-
-   ```bash
-   git clone https://github.com/adityakapole/Telecom-Customer-Churn-Prediction.git
-   cd Telecom-Customer-Churn-Prediction
+| Customer Information                         | ![Customer Information](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/churning.png)   |
+| Distribution Analysis                        | ![Distribution Analysis](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/distro_analysis.png)   |
+| Security Distribution                        | ![Security Distribution](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/onlien%20analysis.png)|
+| Churn Analysis                               | ![Screenshot](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/churn_analysis.png)          |
