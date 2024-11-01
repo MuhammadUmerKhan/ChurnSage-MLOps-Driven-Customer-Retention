@@ -4,6 +4,8 @@ import numpy as np
 import spacy
 import joblib
 
+
+st.title("Customer Churn Prediction")
 # Load SpaCy model
 nlp = spacy.load("en_core_web_lg")
 
@@ -20,14 +22,60 @@ churn_feature_scaler = joblib.load("./models/minmax_scaler_for_churn_prediction.
 churn_sentiment_model = joblib.load("./models/Churn_Sentiment_Classifier.joblib")
 churn_sentiment_scaler = joblib.load("./models/scaler_for_sentiment_analysis.joblib")
 
-# Tabs for different sections
-tab1, tab2 = st.tabs(["Predict Customer Churn", "Feedback Section"])
+# Define the reverser function to transform categorical columns
+def reverser(data):
+    columns_len_2 = ['SeniorCitizen', 'Partner', 'Dependents', 'OnlineSecurity', 'TechSupport', 'PaperlessBilling', 'Churn']
+    
+    # Transform binary columns
+    for col in columns_len_2:
+        if col in data.columns:
+            data[col] = data[col].apply(lambda x: 'No' if x == 0 else 'Yes')
+    
+    # Map Contract and PaymentMethod columns
+    if 'Contract' in data.columns:
+        data['Contract'] = data['Contract'].map({0: "Month-to-month", 1: "One year", 2: "Two year"})
+    
+    if 'PaymentMethod' in data.columns:
+        data['PaymentMethod'] = data['PaymentMethod'].map({
+            0: "Electronic check",
+            1: "Mailed check",
+            2: "Bank transfer (automatic)",
+            3: "Credit card (automatic)"
+        })
+    
+    return data
 
-# First Tab: Predict Customer Churn Section
+# Load the sample data
+sample_dataframe = pd.read_csv("./Datasets/Ready_data_for_model.csv")
+sample_dataframe = reverser(sample_dataframe)
+
+sample_dataframe_feedback = pd.read_csv("./Datasets/Ready_data_for_model_feedback.csv")
+sample_dataframe_feedback = reverser(sample_dataframe_feedback)
+
+churn_class_1 = sample_dataframe[sample_dataframe['Churn'] == 'Yes']
+churn_class_0 = sample_dataframe[sample_dataframe['Churn'] == "No"]
+
+churn_feedback_class_1 = sample_dataframe_feedback[sample_dataframe_feedback['Churn'] == 'Yes']
+churn_feedback_class_0 = sample_dataframe_feedback[sample_dataframe_feedback['Churn'] == "No"]
+
+# Initialize session state for sample data in both tabs
+if "df_sample_tab1" not in st.session_state:
+    churn_class_1_sample = churn_class_1.sample(3)
+    churn_class_0_sample = churn_class_0.sample(3)
+    st.session_state.df_sample_tab1 = pd.concat([churn_class_1_sample, churn_class_0_sample])
+
+if "df_sample_tab2" not in st.session_state:
+    churn_feedback_class_1_sample = churn_feedback_class_1.sample(3)
+    churn_feedback_class_0_sample = churn_feedback_class_0.sample(3)
+    st.session_state.df_sample_tab2 = pd.concat([churn_feedback_class_1_sample, churn_feedback_class_0_sample])
+
+# Tab layout
+tab1, tab2 = st.tabs(["Predict Customer Churn", "Provide Feedback"])
+
 with tab1:
     st.header("Predict Customer Churn")
 
-    # Organize inputs into columns
+    # Customer input fields in columns
     col1, col2, col3 = st.columns(3)
     with col1:
         monthly_charges = st.text_input("Monthly Charges", "0", key="mc")
@@ -74,12 +122,11 @@ with tab1:
     # Predict button
     if st.button("Predict"):
         try:
-            # Convert inputs to correct numeric format
             monthly_charges = float(monthly_charges)
             tenure = float(tenure)
             total_charges = float(total_charges)
             
-            # Prepare the input data
+            # Prepare input data
             input_data = [[
                 senior_citizen, partner, dependents, tenure, online_security,
                 tech_support, contract, paperless_billing, payment_method,
@@ -91,60 +138,25 @@ with tab1:
                 'MonthlyCharges', 'TotalCharges'
             ])
             
-            # Scale numeric data
+            # Scale and predict
             input_df[['tenure', 'MonthlyCharges', 'TotalCharges']] = churn_feature_scaler.transform(
                 input_df[['tenure', 'MonthlyCharges', 'TotalCharges']]
             )
-            
-            # Predict churn
             prediction = churn_feature_model.predict(input_df.values)
             st.write("Prediction:", "😢 Customer may leave" if prediction[0] == 1 else "😊 Customer likely to stay")
         
         except ValueError:
             st.error("Please enter valid numeric values for Monthly Charges, Tenure, and Total Charges.")
-    
-    def reverser(data):
-        # Define the columns based on their encoding needs
-        columns_len_2 = ['SeniorCitizen', 'Partner', 'Dependents', 'OnlineSecurity', 'TechSupport', 'PaperlessBilling', 'Churn']
-        columns_len_3 = ['Contract', 'PaymentMethod']
-        
-        # Apply transformations for columns with binary values
-        for col in columns_len_2:
-            if col in data.columns:
-                data[col] = data[col].apply(lambda x: 'No' if x == 0 else 'Yes')
-        
-        # Apply specific mappings for Contract and PaymentMethod columns
-        if 'Contract' in data.columns:
-            data['Contract'] = data['Contract'].map({0: "Month-to-month", 1: "One year", 2: "Two year"})
-        
-        if 'PaymentMethod' in data.columns:
-            data['PaymentMethod'] = data['PaymentMethod'].map({
-                0: "Electronic check",
-                1: "Mailed check",
-                2: "Bank transfer (automatic)",
-                3: "Credit card (automatic)"
-            })
-        
-        return data
 
-    # Load sample dataframe
-    sample_dataframe = pd.read_csv("./Datasets/Ready_data_for_model.csv")
+    # Display and refresh sample DataFrame for churn classes
+    sample_display = st.empty()
+    sample_display.dataframe(st.session_state.df_sample_tab1)
 
-    # Apply reverser function
-    sample_dataframe = reverser(sample_dataframe)
-
-    # Initialize session state for this tab's DataFrame if it doesn’t already exist
-    if "df_sample_tab1" not in st.session_state:
-        st.session_state.df_sample_tab1 = sample_dataframe.sample(5)
-
-    # Display the DataFrame
-    st.dataframe(st.session_state.df_sample_tab1)
-
-    # Refresh button below the DataFrame with a unique key
-    if st.button("Refresh Sample (Tab 1)", key="refresh_sample_tab1"):
-        # Resample 5 rows and update session state
-        st.session_state.df_sample_tab1 = sample_dataframe.sample(5)
-
+    if st.button("Refresh Sample"):
+        churn_class_1_sample = churn_class_1.sample(3)
+        churn_class_0_sample = churn_class_0.sample(3)
+        st.session_state.df_sample_tab1 = pd.concat([churn_class_1_sample, churn_class_0_sample])
+        sample_display.dataframe(st.session_state.df_sample_tab1)
 
 # Second Tab: Feedback Section
 with tab2:
@@ -155,7 +167,6 @@ with tab2:
 
     if st.button("Submit Feedback", key="submit_feedback"):
         try:
-            # Process and transform feedback data
             cleaned_feedback = preprocess(feedback)
             feedback_vector = nlp(cleaned_feedback).vector
             feedback_tenure = float(feedback_tenure)
@@ -164,24 +175,18 @@ with tab2:
             feedback_data = np.array([[*feedback_vector, feedback_tenure, feedback_monthly_charges]])
             sentiment_input_scaled = churn_sentiment_scaler.transform(feedback_data)
             
-            # Predict feedback sentiment
             prediction = churn_sentiment_model.predict(sentiment_input_scaled)
             st.write("Feedback Prediction:", "😢 Customer may leave" if prediction[0] == 1 else "😊 Customer likely to stay")
         
         except ValueError:
             st.error("Please enter valid numeric values for Tenure and Monthly Charges.")
 
-    # Load sample DataFrame for feedback section
-    sample_dataframe_feedback = pd.read_csv("./Datasets/Ready_data_for_model_feedback.csv")
+    # Display and refresh sample DataFrame for feedback section
+    feedback_display = st.empty()
+    feedback_display.dataframe(st.session_state.df_sample_tab2)
 
-    # Initialize session state for this tab's DataFrame if it doesn’t already exist
-    if "df_sample_tab2" not in st.session_state:
-        st.session_state.df_sample_tab2 = sample_dataframe_feedback.sample(5)
-
-    # Display the DataFrame
-    st.dataframe(st.session_state.df_sample_tab2)
-
-    # Refresh button below the DataFrame with a unique key
     if st.button("Refresh Sample (Tab 2)", key="refresh_sample_tab2"):
-        # Resample 5 rows and update session state
-        st.session_state.df_sample_tab2 = sample_dataframe_feedback.sample(5)
+        churn_feedback_class_1_sample = churn_feedback_class_1.sample(3)
+        churn_feedback_class_0_sample = churn_feedback_class_0.sample(3)
+        st.session_state.df_sample_tab2 = pd.concat([churn_feedback_class_1_sample, churn_feedback_class_0_sample])
+        feedback_display.dataframe(st.session_state.df_sample_tab2)
