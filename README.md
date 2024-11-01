@@ -58,8 +58,8 @@ Explore profound insights and analytics gleaned from our extensive dataset. Unco
 
 | Feature                                      | Visualization                                                                                       |
 |----------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| Categorical Features                         | ![Categorical Features](https://github.com/virajbhutada/Telecom-Customer-Churn-Prediction/assets/143819712/ce2e270e-2118-41b5-8207-1fccd2e98982)   |
-| Churn Target Variable                        | ![Churn Target Variable](https://github.com/virajbhutada/Telecom-Customer-Churn-Prediction/assets/143819712/681e2805-d61e-4d56-be55-fa0495a5bfd5)  |
+| Categorical Features                         | ![Categorical Features](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/Categorical_feature.png)   |
+| Churn Target Variable                        | ![Churn Target Variable](https://github.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/blob/main/insights/churn_vs_not_churn.png)  |
 | Customer Information                         | ![Customer Information](https://github.com/virajbhutada/Telecom-Customer-Churn-Prediction/assets/143819712/234d902f-f514-4d2f-b28a-6d5813c67909)   |
 | Distribution Analysis                        | ![Distribution Analysis](https://github.com/virajbhutada/Telecom-Customer-Churn-Prediction/assets/143819712/e72dbd50-9c94-4c44-bf89-1b3baa090a64)   |
 | Mean Tenure                                  | ![Mean Tenure](https://github.com/virajbhutada/Telecom-Customer-Churn-Prediction/assets/143819712/0f8feb7e-d723-4061-beb6-62275d6a54b9)         |
