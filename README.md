@@ -140,9 +140,6 @@ Experience the deployed version of the Telecom Churn Prediction project!
 Feel free to adapt the above steps based on your specific use case and programming environment.
 
 ---
-##  License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Conclusion
 By leveraging comprehensive churn analysis, robust predictive models, and interactive Power BI visualizations, the telecommunications company can proactively identify at-risk customers, understand churn drivers, and enhance service offerings. This approach fosters customer retention, reduces acquisition costs, and supports sustainable growth. Ultimately, the integration of predictive insights into strategic decision-making enables companies to maintain a competitive edge in a dynamic industry.
