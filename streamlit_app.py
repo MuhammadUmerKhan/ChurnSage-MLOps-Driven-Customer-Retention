@@ -162,10 +162,18 @@ with tab1:
 # Second Tab: Feedback Section
 with tab2:
     st.header("Provide Feedback")
+    
+    # Create rows for input fields using columns
     feedback = st.text_area("Enter your feedback here", key="feedback")
-    feedback_tenure = st.number_input("Tenure", value=0, key="fb_tenure", format="%d")
-    feedback_monthly_charges = st.number_input("Monthly Charges", value=0.0, key="fb_mc", format="%.2f")
+    
+    # Organize Tenure and Monthly Charges in a row
+    col1, col2 = st.columns(2)
+    with col1:
+        feedback_tenure = st.number_input("Tenure", value=0, key="fb_tenure", format="%d")
+    with col2:
+        feedback_monthly_charges = st.number_input("Monthly Charges", value=0.0, key="fb_mc", format="%.2f")
 
+    # Submit Feedback button with prediction logic
     if st.button("Submit Feedback", key="submit_feedback"):
         try:
             if not feedback:
@@ -173,13 +181,13 @@ with tab2:
             else:
                 cleaned_feedback = preprocess(feedback)
                 feedback_vector = nlp(cleaned_feedback).vector
-                
+
                 feedback_tenure = float(feedback_tenure)
                 feedback_monthly_charges = float(feedback_monthly_charges)
 
                 feedback_data = np.array([[*feedback_vector, feedback_tenure, feedback_monthly_charges]])
                 sentiment_input_scaled = churn_sentiment_scaler.transform(feedback_data)
-                
+
                 prediction = churn_sentiment_model.predict(sentiment_input_scaled)
                 st.write("Feedback Prediction:", "😢 Customer may leave" if prediction[0] == 1 else "😊 Customer likely to stay")
         
