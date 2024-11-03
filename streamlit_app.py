@@ -3,22 +3,9 @@ import pandas as pd
 import numpy as np
 import spacy
 import joblib
-from spacy.cli import download
-import os
+import en_core_web_sm
 
-# Define a local model path within the project
-local_model_path = "./models/en_core_web_sm"
-
-# Ensure models directory exists
-os.makedirs("./models", exist_ok=True)
-
-# Try loading the model from the custom path; download if missing
-try:
-    nlp = spacy.load(local_model_path)
-except OSError:
-    # Download the model to the local directory
-    download("en_core_web_sm")
-    nlp = spacy.load(local_model_path)
+nlp = en_core_web_sm.load()
 
 st.title("Customer Churn Prediction")
 
@@ -29,7 +16,7 @@ def preprocess(text):
     return " ".join(filtered_tokens)
 
 # Load models and scalers
-churn_feature_model = joblib.load("./models_joblib_filesChurn_feature_classifier.joblib")
+churn_feature_model = joblib.load("./models_joblib_files/Churn_feature_classifier.joblib")
 churn_feature_scaler = joblib.load("./models_joblib_files/minmax_scaler_for_churn_prediction.joblib")
 churn_sentiment_model = joblib.load("./models_joblib_files/Churn_sentiment_classifier.joblib")
 churn_sentiment_scaler = joblib.load("./models_joblib_files/scaler_for_sentiment_analysis.joblib")
