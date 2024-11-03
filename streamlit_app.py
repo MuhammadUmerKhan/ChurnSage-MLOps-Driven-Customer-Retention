@@ -18,6 +18,15 @@ try:
     nlp = spacy.load(local_model_path)
 except OSError:
     # Download the model to the local directory without leading dash
+    download("en_core_web_sm", "--target", model_dir)  # Correct download call
+    # Load the model from the specified directory after downloading
+    nlp = spacy.load(local_model_path)
+
+# Check if the model was loaded successfully
+if nlp is not None:
+    st.write("Spacy model loaded successfully!")
+
+    # Download the model to the local directory without leading dash
     download("en_core_web_sm", "--target", model_dir)
     # After downloading, load the model from the correct path
     nlp = spacy.load(local_model_path)
