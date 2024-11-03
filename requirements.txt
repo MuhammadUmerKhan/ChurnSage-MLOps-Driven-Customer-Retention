@@ -3,4 +3,3 @@ spacy
 joblib
 pandas
 numpy
-# Note: en_core_web_sm will be installed within the script if not found

@@ -5,12 +5,14 @@ import spacy
 import joblib
 from spacy.cli import download
 
+
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
-    from spacy.cli import download
+    # Download to a writable location
     download("en_core_web_sm")
     nlp = spacy.load("en_core_web_sm")
+
 
 st.title("Customer Churn Prediction")
 
