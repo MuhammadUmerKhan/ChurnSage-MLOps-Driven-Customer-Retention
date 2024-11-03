@@ -3,4 +3,3 @@ spacy
 joblib
 pandas
 numpy
-en_core_web_sm
