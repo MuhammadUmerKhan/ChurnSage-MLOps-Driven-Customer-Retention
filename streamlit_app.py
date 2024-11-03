@@ -6,34 +6,7 @@ import joblib
 import os
 from spacy.cli import download
 
-# Define a local model path within the project
-model_dir = "./models"
-local_model_path = f"{model_dir}/en_core_web_sm"
-
-# Ensure models directory exists
-os.makedirs(model_dir, exist_ok=True)
-
-# Try loading the model from the custom path; download if missing
-try:
-    nlp = spacy.load(local_model_path)
-except OSError:
-    # Download the model to the local directory (correct URL)
-    download("en_core_web_sm", "--target", model_dir)  
-    # Load the model from the specified directory after downloading
-    nlp = spacy.load(local_model_path)
-
-# Check if the model was loaded successfully
-if nlp is not None:
-    st.write("Spacy model loaded successfully!")
-
-    # Download the model to the local directory without leading dash
-    download("en_core_web_sm", "--target", model_dir)
-    # After downloading, load the model from the correct path
-    nlp = spacy.load(local_model_path)
-
-# Check if the model was loaded successfully
-if nlp is not None:
-    st.write("Spacy model loaded successfully!")
+nlp = spacy.load('en_core_web_sm')
 
 st.title("Customer Churn Prediction")
 
