@@ -6,9 +6,90 @@ import joblib
 import os
 from spacy.cli import download
 
+# Load spaCy model
 nlp = spacy.load('en_core_web_sm')
 
-st.title("Customer Churn Prediction")
+# Streamlit page configuration
+st.set_page_config(
+    page_title="Customer Churn Prediction",
+    page_icon="📊",
+    layout="centered",
+    initial_sidebar_state="expanded"
+)
+
+# Custom CSS for styling
+st.markdown("""
+    <style>
+        /* Main Title */
+        .main-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2C3E50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        /* Section Titles */
+        .section-title {
+            font-size: 1.8em;
+            color: #3498DB;
+            font-weight: bold;
+            margin-top: 30px;
+            text-align: left;
+        }
+        /* Section Content */
+        .section-content{
+            text-align: center;
+        }
+        /* Home Page Content */
+        .intro-title {
+            font-size: 2.5em;
+            color: #2C3E50;
+            font-weight: bold;
+            text-align: center;
+        }
+        .intro-subtitle {
+            font-size: 1.2em;
+            color: #34495E;
+            text-align: center;
+        }
+        .content {
+            font-size: 1em;
+            color: #7F8C8D;
+            text-align: justify;
+            line-height: 1.6;
+        }
+        .highlight {
+            color: #2E86C1;
+            font-weight: bold;
+        }
+        /* Recommendation Titles and Descriptions */
+        .recommendation-title {
+            font-size: 22px;
+            color: #2980B9;
+        }
+        .recommendation-desc {
+            font-size: 16px;
+            color: #7F8C8D;
+        }
+        /* Separator Line */
+        .separator {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-top: 1px solid #BDC3C7;
+        }
+        /* Footer */
+        .footer {
+            font-size: 14px;
+            color: #95A5A6;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Title Heading (appears above tabs and remains on all pages)
+st.markdown('<div class="intro-title">📊 Welcome to the Customer Churn Prediction Tool 📊</div>', unsafe_allow_html=True)
+st.markdown('<div class="intro-subtitle">Your one-stop solution for retaining loyal customers! 🚀</div>', unsafe_allow_html=True)
 
 # Define preprocessing function
 def preprocess(text):
@@ -16,11 +97,6 @@ def preprocess(text):
     filtered_tokens = [token.lemma_ for token in doc if not token.is_stop and not token.is_punct]
     return " ".join(filtered_tokens)
 
-# Load models and scalers
-churn_feature_model = joblib.load("./models_joblib_files/Churn_feature_classifier.joblib")
-churn_feature_scaler = joblib.load("./models_joblib_files/minmax_scaler_for_churn_prediction.joblib")
-churn_sentiment_model = joblib.load("./models_joblib_files/Churn_sentiment_classifier.joblib")
-churn_sentiment_scaler = joblib.load("./models_joblib_files/scaler_for_sentiment_analysis.joblib")
 
 # Define the reverser function to transform categorical columns
 def reverser(data):
@@ -45,6 +121,12 @@ def reverser(data):
     
     return data
 
+# Load models and scalers
+churn_feature_model = joblib.load("./models_joblib_files/Churn_feature_classifier.joblib")
+churn_feature_scaler = joblib.load("./models_joblib_files/minmax_scaler_for_churn_prediction.joblib")
+churn_sentiment_model = joblib.load("./models_joblib_files/Churn_sentiment_classifier.joblib")
+churn_sentiment_scaler = joblib.load("./models_joblib_files/scaler_for_sentiment_analysis.joblib")
+
 # Load the sample data
 sample_dataframe = pd.read_csv("./Datasets/Ready_data_for_model.csv")
 sample_dataframe = reverser(sample_dataframe)
@@ -58,7 +140,6 @@ churn_class_0 = sample_dataframe[sample_dataframe['Churn'] == "No"]
 churn_feedback_class_1 = sample_dataframe_feedback[sample_dataframe_feedback['Churn'] == 'Yes']
 churn_feedback_class_0 = sample_dataframe_feedback[sample_dataframe_feedback['Churn'] == "No"]
 
-# Initialize session state for sample data in both tabs
 if "df_sample_tab1" not in st.session_state:
     churn_class_1_sample = churn_class_1.sample(3)
     churn_class_0_sample = churn_class_0.sample(3)
@@ -69,12 +150,38 @@ if "df_sample_tab2" not in st.session_state:
     churn_feedback_class_0_sample = churn_feedback_class_0.sample(3)
     st.session_state.df_sample_tab2 = pd.concat([churn_feedback_class_1_sample, churn_feedback_class_0_sample])
 
-# Tab layout
-tab1, tab2 = st.tabs(["Predict Customer Churn", "Provide Feedback"])
 
-# First Tab: Churn Prediction
+# Tab layout
+tab1, tab2, tab3 = st.tabs(["🏠 Home", "📋 Predict Customer Churn", "✍️ Provide Feedback"])
+
+# First Tab: Home
 with tab1:
-    st.header("Predict Customer Churn")
+    st.markdown('<div class="section-title">👋 About Me</div>', unsafe_allow_html=True)
+    st.markdown('<div class="content">Hi! I\'m Muhammad Umer Khan, an aspiring Data Scientist with a passion for Natural Language Processing (NLP). Currently pursuing my Bachelor’s in Computer Science, I have hands-on experience with projects in data science, data scraping, and building intelligent recommendation systems.</div>', unsafe_allow_html=True)
+
+    st.markdown('<div class="section-title">🔍 Project Overview</div>', unsafe_allow_html=True)
+    st.markdown("""
+        <div class="content">
+            This project focuses on creating a comprehensive <span class="highlight">Churn Prediction</span> using advanced NLP techniques. Here’s what we achieved:
+            <ul>
+                <li><span class="highlight">Data Collection 📊</span>: <a href="https://www.kaggle.com/datasets/blastchar/telco-customer-churn" target="_blank" style="color: #2980B9;">Telecom Customer Dataset</a></li>
+                <li><span class="highlight">Feature Based Prediction 🔍</span>: Utilized features like tenure, Monthly Charges, Feedbacks etc., to predict customer churn</li>
+                <li><span class="highlight">Fine Tuning 📈</span>: Planned for further development to enhance prediction accuracy.</li>
+                <li><span class="highlight">Deployment 🌐</span>: Built a user-friendly app with an intuitive interface for customer prediction.</li>
+            </ul>
+        </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="section-title">💻 Technologies Used</div>', unsafe_allow_html=True)
+    st.markdown("""
+        <div class="content">
+            - <span class="highlight">Languages & Libraries</span>: Python, Pandas, Scikit-Learn, Spacy, Word Embeddings, and Streamlit<br>
+            - <span class="highlight">Deployment</span>: Streamlit for interactive interface and easy deployment.
+        </div>
+    """, unsafe_allow_html=True)
+# Second Tab: Churn Prediction
+with tab2:
+    st.header("Predict Customer Churn 🔍")
 
     # Customer input fields in columns
     col1, col2, col3 = st.columns(3)
@@ -121,7 +228,7 @@ with tab1:
         }[payment_method]
 
     # Predict button
-    if st.button("Predict"):
+    if st.button("Predict Churn 🚀"):
         try:
             # Prepare input data
             input_data = [[
@@ -136,15 +243,19 @@ with tab1:
             ])
             
             # Scale and predict
-            input_df[['tenure', 'MonthlyCharges', 'TotalCharges']] = churn_feature_scaler.transform(
-                input_df[['tenure', 'MonthlyCharges', 'TotalCharges']]
-            )
-            prediction = churn_feature_model.predict(input_df.values)
-            st.write("Prediction:", "😢 Customer may leave" if prediction[0] == 1 else "😊 Customer likely to stay")
-        
-        except ValueError as ve:
-            st.error(f"Error: {str(ve)}. Please enter valid numeric values for Monthly Charges, Tenure, and Total Charges.")
+            input_df[['tenure', 'MonthlyCharges', 'TotalCharges']] = churn_feature_scaler.transform(input_df[['tenure', 'MonthlyCharges', 'TotalCharges']])
+            prediction = churn_feature_model.predict(input_df)
+            prediction_prob = churn_feature_model.predict_proba(input_df)[0][1]
 
+            # Display result
+            if prediction[0] == 1:
+                st.write("Prediction:", "😢 Customer may leave")
+                st.markdown(f"Probability: **{prediction_prob*100:.2f}%**")
+            else:
+                st.write("Prediction:", "😊 Customer likely to stay")
+                st.markdown(f"Probability: **{(1 - prediction_prob)*100:.2f}%**")
+        except Exception as e:
+            st.error(f"An error occurred during prediction: {str(e)}")
     # Display and refresh sample DataFrame for churn classes
     sample_display = st.empty()
     sample_display.dataframe(st.session_state.df_sample_tab1)
@@ -155,22 +266,20 @@ with tab1:
         st.session_state.df_sample_tab1 = pd.concat([churn_class_1_sample, churn_class_0_sample])
         sample_display.dataframe(st.session_state.df_sample_tab1)
 
-# Second Tab: Feedback Section
-with tab2:
-    st.header("Provide Feedback")
+# Third Tab: Provide Feedback
+with tab3:
+    st.header("Analyze Customer Feedback 📝")
     
-    # Create rows for input fields using columns
     feedback = st.text_area("Enter your feedback here", key="feedback")
     
     # Organize Tenure and Monthly Charges in a row
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([3, 1])
     with col1:
         feedback_tenure = st.number_input("Tenure", value=0, key="fb_tenure", format="%d")
     with col2:
         feedback_monthly_charges = st.number_input("Monthly Charges", value=0.0, key="fb_mc", format="%.2f")
-
-    # Submit Feedback button with prediction logic
-    if st.button("Submit Feedback", key="submit_feedback"):
+        
+    if st.button("Analyze Feedback 📊"):
         try:
             if not feedback:
                 st.error("Feedback cannot be empty.")
@@ -184,13 +293,19 @@ with tab2:
                 feedback_data = np.array([[*feedback_vector, feedback_tenure, feedback_monthly_charges]])
                 sentiment_input_scaled = churn_sentiment_scaler.transform(feedback_data)
 
-                prediction = churn_sentiment_model.predict(sentiment_input_scaled)
-                st.write("Feedback Prediction:", "😢 Customer may leave" if prediction[0] == 1 else "😊 Customer likely to stay")
+                feedback_prediction = churn_sentiment_model.predict(sentiment_input_scaled)
+                feedback_prob = churn_sentiment_model.predict_proba(sentiment_input_scaled)[0][1]\
+                    
+                if feedback_prediction[0] == 1:
+                    st.write("Prediction:", "😡 Negative Feedback")
+                    st.markdown(f"Probability: **{feedback_prob*100:.2f}%**")
+                else:
+                    st.write("Prediction:", "😊 Positive Feedback")
+                    st.markdown(f"Probability: **{(1 - feedback_prob)*100:.2f}%**")
         
         except ValueError as ve:
             st.error(f"Error: {str(ve)}. Please enter valid numeric values for Tenure and Monthly Charges.")
-
-    # Display and refresh sample DataFrame for feedback classes
+            
     feedback_display = st.empty()
     feedback_display.dataframe(st.session_state.df_sample_tab2)
 
@@ -199,3 +314,11 @@ with tab2:
         churn_feedback_class_0_sample = churn_feedback_class_0.sample(3)
         st.session_state.df_sample_tab2 = pd.concat([churn_feedback_class_1_sample, churn_feedback_class_0_sample])
         feedback_display.dataframe(st.session_state.df_sample_tab2)
+        
+        
+# Footer
+st.markdown("""
+    <div class="footer">
+        Developed by <a href="https://portfolio-sigma-mocha-67.vercel.app/" target="_blank" style="color: #2980B9;">Muhammad Umer Khan</a>. Powered by SpaCy and Random Forest Classifier. 🌐
+    </div>
+""", unsafe_allow_html=True)
