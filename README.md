@@ -44,11 +44,6 @@ Given the high costs associated with acquiring new customers, in-depth churn ana
 4. **Predictive Modeling:**
    - Developed and fine-tuned machine learning models, including Logistic Regression, Random Forest, and Gradient Boosting.
    - Evaluated model performance based on metrics such as accuracy, precision, recall, and ROC-AUC score to select the optimal model for churn prediction.
-
-5. **Power BI for Visual Insights:**
-   - Implemented Power BI to create interactive dashboards and visualizations that provide intuitive insights into churn patterns.
-   - Visualized model predictions, feature importance, customer segmentation, and NLP findings to facilitate strategic decision-making and operational planning.
-
 ---
 
 ## Data Insights
