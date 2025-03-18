@@ -3,7 +3,8 @@
 logistic_params = {
     'C': [0.001, 0.01, 0.1, 1, 10, 100],
     'solver': ['liblinear', 'newton-cg', 'lbfgs', 'sag', 'saga'],
-    'penalty': ['l1', 'l2', 'elasticnet', 'none'],
+    'penalty': ['l1', 'l2', 'elasticnet'],
+    'l1_ratio': [0.1, 0.5, 0.9]
 }
 
 decision_tree_params = {
