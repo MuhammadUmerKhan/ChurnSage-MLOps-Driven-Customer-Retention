@@ -56,24 +56,24 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
         mlflow.set_tag("dataset_used", "Customer Churn Dataset")
         mlflow.set_tag("tracking_method", "SQLite Database")
 
-        # ✅ Ensure "../models/" directory exists
+        # ✅ Ensure "models/" directory exists
         artifact_dir = "models"
-        
         os.makedirs(artifact_dir, exist_ok=True)
 
         # ✅ Log model inside MLflow's `models/` directory
-        mlflow.sklearn.log_model(best_model, artifact_path=f"{artifact_dir}/{model_name}")
+        mlflow.sklearn.log_model(best_model, artifact_path=f"models/{model_name}")
 
         print(f"✅ Model '{model_name}' logged to MLflow with Accuracy: {accuracy:.4f}, F1-Score: {f1:.4f}")
 
         return best_model, best_params
+
 
 if __name__ == "__main__":
     # ✅ Run preprocessing first
     X_train, X_test, y_train, y_test = data_preprocessing.run_preprocessing_pipeline()
 
     # ✅ Train and track different models
-    train_and_track_model(LogisticRegression(), X_train, y_train, X_test, y_test, logistic_params, "logistic_model")
-    train_and_track_model(DecisionTreeClassifier(), X_train, y_train, X_test, y_test, decision_tree_params, "decision_tree_model")
-    train_and_track_model(RandomForestClassifier(), X_train, y_train, X_test, y_test, random_forest_params, "random_forest_model")
-    train_and_track_model(KNeighborsClassifier(), X_train, y_train, X_test, y_test, knn_params, "knn_model")
+    train_and_track_model(LogisticRegression(), X_train, y_train, X_test, y_test, logistic_params, "Logistic Regression Classifier")
+    train_and_track_model(DecisionTreeClassifier(), X_train, y_train, X_test, y_test, decision_tree_params, "Decision Tree Classifier")
+    train_and_track_model(RandomForestClassifier(), X_train, y_train, X_test, y_test, random_forest_params, "Random Forest Classifier")
+    train_and_track_model(KNeighborsClassifier(), X_train, y_train, X_test, y_test, knn_params, "KNN Classifier")
