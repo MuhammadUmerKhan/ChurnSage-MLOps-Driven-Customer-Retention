@@ -16,7 +16,10 @@ mlflow.set_tracking_uri("sqlite:///mlflow.db")
 mlflow.set_experiment("Customer Churn Prediction")
 
 def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model_name):
-    with mlflow.start_run():
+    """Train a model, log it to MLflow, and track metrics."""
+    
+    # ✅ Start MLflow Run with a specific name
+    with mlflow.start_run(run_name=model_name):  
         # ✅ Convert y_train and y_test to 1D arrays
         y_train = y_train.values.ravel()
         y_test = y_test.values.ravel()
@@ -48,8 +51,15 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
         mlflow.log_metric("f1_score", f1)
         mlflow.log_metric("roc_auc_score", roc_auc)
 
+        # ✅ Log additional metadata
+        mlflow.set_tag("model_name", model_name)
+        mlflow.set_tag("dataset_used", "Customer Churn Dataset")
+        mlflow.set_tag("tracking_method", "SQLite Database")
+
         # ✅ Ensure "../models/" directory exists
         artifact_dir = "models"
+        
+        os.makedirs(artifact_dir, exist_ok=True)
 
         # ✅ Log model inside MLflow's `models/` directory
         mlflow.sklearn.log_model(best_model, artifact_path=f"{artifact_dir}/{model_name}")
@@ -59,9 +69,10 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
         return best_model, best_params
 
 if __name__ == "__main__":
+    # ✅ Run preprocessing first
     X_train, X_test, y_train, y_test = data_preprocessing.run_preprocessing_pipeline()
 
-    # ✅ Train models
+    # ✅ Train and track different models
     train_and_track_model(LogisticRegression(), X_train, y_train, X_test, y_test, logistic_params, "logistic_model")
     train_and_track_model(DecisionTreeClassifier(), X_train, y_train, X_test, y_test, decision_tree_params, "decision_tree_model")
     train_and_track_model(RandomForestClassifier(), X_train, y_train, X_test, y_test, random_forest_params, "random_forest_model")
