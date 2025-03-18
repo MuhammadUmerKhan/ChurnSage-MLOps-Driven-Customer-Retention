@@ -113,9 +113,9 @@ if __name__ == "__main__":
     X_train, X_test = scale_numeric_features(X_train, X_test)
 
     # Save processed data
-    # X_train.to_csv("data/X_train.csv", index=False)
-    # X_test.to_csv("data/X_test.csv", index=False)
-    # y_train.to_csv("data/y_train.csv", index=False)
-    # y_test.to_csv("data/y_test.csv", index=False)
+    X_train.to_csv("../Datasets/X_train.csv", index=False)
+    X_test.to_csv("../Datasets/X_test.csv", index=False)
+    y_train.to_csv("../Datasets/y_train.csv", index=False)
+    y_test.to_csv("../Datasets/y_test.csv", index=False)
 
     print("Preprocessing completed and files saved!")
