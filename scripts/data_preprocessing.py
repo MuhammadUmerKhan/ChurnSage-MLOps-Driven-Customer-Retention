@@ -1,38 +1,34 @@
+import os
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from imblearn.combine import SMOTEENN
 from sklearn.model_selection import train_test_split
-import data_ingestion
-import os
+import data_ingestion  # ✅ Ensure this module correctly loads data
 
 def load_data():
     """Load dataset from CSV file."""
-    churn_data = data_ingestion.load_data()
-    return churn_data
+    return data_ingestion.load_data()
 
 def clean_data(churn_data: pd.DataFrame) -> pd.DataFrame:
     """Clean dataset by handling missing values and removing duplicates."""
     churn_data = churn_data.copy()
     
     # Drop customer ID
-    churn_data.drop(columns='customerID', inplace=True)
+    churn_data.drop(columns='customerID', inplace=True, errors='ignore')
     
     # Convert 'TotalCharges' to numeric and handle missing values
     churn_data['TotalCharges'] = churn_data['TotalCharges'].replace(' ', np.nan).astype(float)
     churn_data['TotalCharges'].fillna(value=churn_data['TotalCharges'].mean(), inplace=True)
-    
-    # Remove empty values
-    churn_data = churn_data[churn_data['TotalCharges'].notna()]
-    
+
     # Drop duplicates
     churn_data.drop_duplicates(inplace=True)
 
     return churn_data
 
-def replace_no_service(value: str) -> str:
+def replace_no_service(value):
     """Replace 'No phone service' and 'No internet service' with 'No'."""
-    return 'No' if value in ['No phone service', 'No internet service'] else value
+    return 'No' if str(value) in ['No phone service', 'No internet service'] else value
 
 def transform_categorical_features(churn_data: pd.DataFrame) -> pd.DataFrame:
     """Transform categorical features using Label Encoding."""
@@ -43,6 +39,7 @@ def transform_categorical_features(churn_data: pd.DataFrame) -> pd.DataFrame:
         'MultipleLines', 'OnlineSecurity', 'OnlineBackup', 
         'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies'
     ]
+    
     for column in columns_to_transform:
         churn_data[column] = churn_data[column].apply(replace_no_service)
     
@@ -50,11 +47,11 @@ def transform_categorical_features(churn_data: pd.DataFrame) -> pd.DataFrame:
     le = LabelEncoder()
     text_data_features = [col for col in churn_data.columns if churn_data[col].dtype == 'object']
 
-    print('Label Encoder Transformation')
+    print("✅ Applying Label Encoding...")
     for col in text_data_features:
         churn_data[col] = le.fit_transform(churn_data[col])
-        print(col, ':', churn_data[col].unique(), '=', le.inverse_transform(churn_data[col].unique()))
-    
+        print(f"🔹 {col}: {churn_data[col].unique()}")
+
     return churn_data
 
 def split_features_and_target(churn_data: pd.DataFrame):
@@ -67,25 +64,19 @@ def split_features_and_target(churn_data: pd.DataFrame):
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Datasets", "ProcessedData"))
     file_name = "Ready_data_for_model.csv"
     
-    # Construct the full file path    
+    os.makedirs(base_dir, exist_ok=True)  # ✅ Ensure directory exists
+    
     file_path = os.path.join(base_dir, file_name)
-    
-    if os.path.exists(file_path):
-        pd.concat([X, y], axis=1)[ 
-                ['MonthlyCharges', 'tenure', 'TotalCharges', 
-                'SeniorCitizen', 'Partner', 'Dependents', 
-                'OnlineSecurity', 'TechSupport', 'PaperlessBilling', 
-                'Contract', 'PaymentMethod', 'Churn']
-            ].to_csv(file_path, index=False)
-        print("✅ Data saved to", file_path)
-    
+    pd.concat([X, y], axis=1).to_csv(file_path, index=False)
+    print(f"✅ Processed Data saved to: {file_path}")
+
     return X, y
 
 def apply_smoteenn(X: pd.DataFrame, y: pd.Series):
     """Handle class imbalance using SMOTEENN."""
+    print("✅ Applying SMOTEENN...")
     smote_enn = SMOTEENN()
-    X_resampled, y_resampled = smote_enn.fit_resample(X, y)
-    return X_resampled, y_resampled
+    return smote_enn.fit_resample(X, y)
 
 def split_train_test(X: pd.DataFrame, y: pd.Series, test_size: float = 0.2):
     """Split dataset into training and testing sets."""
@@ -94,27 +85,23 @@ def split_train_test(X: pd.DataFrame, y: pd.Series, test_size: float = 0.2):
 def scale_numeric_features(X_train: pd.DataFrame, X_test: pd.DataFrame):
     """Scale numeric features using MinMaxScaler."""
     columns_to_scale = ['tenure', 'MonthlyCharges', 'TotalCharges']
-    
-    # Ensure numeric conversion and handle missing values
-    X_train[columns_to_scale] = X_train[columns_to_scale].apply(pd.to_numeric, errors='coerce').fillna(0)
-    X_test[columns_to_scale] = X_test[columns_to_scale].apply(pd.to_numeric, errors='coerce').fillna(0)
+
+    for df in [X_train, X_test]:
+        df[columns_to_scale] = df[columns_to_scale].apply(pd.to_numeric, errors='coerce').fillna(0)
 
     # Scale data
     scaler = MinMaxScaler()
     X_train[columns_to_scale] = scaler.fit_transform(X_train[columns_to_scale])
     X_test[columns_to_scale] = scaler.transform(X_test[columns_to_scale])
-    
+
     return X_train, X_test
 
 def run_preprocessing_pipeline():
     """Runs the full preprocessing pipeline."""
     print("🚀 Starting Data Preprocessing...")
 
-    # Load data
-    data = load_data()
-
-    # Clean data
-    data = clean_data(data)
+    # Load and clean data
+    data = clean_data(load_data())
 
     # Transform categorical features
     data = transform_categorical_features(data)
@@ -132,12 +119,8 @@ def run_preprocessing_pipeline():
     X_train, X_test = scale_numeric_features(X_train, X_test)
 
     model_data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Datasets", "ModelData"))
+    os.makedirs(model_data_path, exist_ok=True)  # ✅ Ensure directory exists
     
-    # Create the directory if it doesn't exist yet to save the processed data in 'ModelData' directory.
-    if not os.path.exists(model_data_path):
-        print("Creating, ModelData directory")
-        os.makedirs(model_data_path)
-        
     # Save processed data
     X_train.to_csv(f"{model_data_path}/X_train.csv", index=False)
     X_test.to_csv(f"{model_data_path}/X_test.csv", index=False)
@@ -145,8 +128,7 @@ def run_preprocessing_pipeline():
     y_test.to_csv(f"{model_data_path}/y_test.csv", index=False)
 
     print("✅ Preprocessing completed! Processed data saved to 'Datasets/ModelData/'.")
-
     return X_train, X_test, y_train, y_test
 
 if __name__ == "__main__":
-    run_preprocessing_pipeline()  # ✅ Call the pipeline function
+    run_preprocessing_pipeline()
