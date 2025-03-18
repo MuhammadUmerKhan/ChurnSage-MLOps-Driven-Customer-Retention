@@ -13,7 +13,7 @@ import data_preprocessing
 
 # ✅ Use SQLite for MLflow tracking
 mlflow.set_tracking_uri("sqlite:///mlflow.db")
-mlflow.set_experiment("Customer Churn Prediction")
+mlflow.set_experiment("Customer Churn Prediction (Exp 2)")
 
 def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model_name):
     """Train a model, log it to MLflow, and track metrics."""
@@ -23,9 +23,18 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
         y_train = y_train.values.ravel()
         y_test = y_test.values.ravel()
 
-        # ✅ Perform hyperparameter tuning
-        gridsearch = GridSearchCV(model, param_grid=params, scoring='f1', cv=5)
-        gridsearch.fit(X_train, y_train)
+        # ✅ Convert all integer columns to float64 (Fix MLflow Warning)
+        X_train = X_train.astype(float)
+        X_test = X_test.astype(float)
+
+        # ✅ Perform hyperparameter tuning with error handling
+        try:
+            gridsearch = GridSearchCV(model, param_grid=params, scoring='f1', cv=5, error_score='raise')
+            gridsearch.fit(X_train, y_train)
+        except Exception as e:
+            print(f"⚠️ GridSearchCV failed for model: {model_name}")
+            print(f"Error: {e}")
+            return None, None  # Skip this model if it fails
 
         # ✅ Get the best model and hyperparameters
         best_model = gridsearch.best_estimator_
@@ -55,7 +64,7 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
         mlflow.set_tag("dataset_used", "Customer Churn Dataset")
         mlflow.set_tag("tracking_method", "SQLite Database")
 
-        # ✅ Ensure "../models/" directory exists
+        # ✅ Ensure "models/" directory exists
         artifact_dir = "models"
         os.makedirs(artifact_dir, exist_ok=True)
 
@@ -64,9 +73,9 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
 
         # ✅ Log model with signature
         mlflow.sklearn.log_model(
-            sk_model=best_model, 
+            sk_model=best_model,
             artifact_path=f"{artifact_dir}/{model_name}",
-            input_example=input_example  # ✅ Added input example
+            input_example=input_example
         )
 
         print(f"✅ Model '{model_name}' logged to MLflow with Accuracy: {accuracy:.4f}, F1-Score: {f1:.4f}")
