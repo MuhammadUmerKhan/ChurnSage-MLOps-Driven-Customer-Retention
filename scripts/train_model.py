@@ -10,7 +10,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from config.config import logistic_params, decision_tree_params, random_forest_params, knn_params
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 
-# Set MLflow experiment
+# Use SQLite for MLflow tracking
+mlflow.set_tracking_uri("sqlite:///mlflow.db")
 mlflow.set_experiment("Customer Churn Prediction")
 
 def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model_name):
