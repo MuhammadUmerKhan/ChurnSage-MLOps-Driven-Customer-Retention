@@ -50,7 +50,7 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
 
         # ✅ Ensure "../models/" directory exists
         artifact_dir = os.path.join(os.getcwd(), "models")
-        os.makedirs(artifact_dir, exist_ok=True)
+        # os.makedirs(artifact_dir, exist_ok=True)
         mlflow.sklearn.log_model(best_model, artifact_path=f"{artifact_dir}/{model_name}")
 
         print(f"✅ Model '{model_name}' logged to MLflow with Accuracy: {accuracy:.4f}, F1-Score: {f1:.4f}")
@@ -58,17 +58,8 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
         return best_model, best_params
 
 if __name__ == "__main__":
-    # ✅ Load and preprocess data from `data_preprocessing.py`
-    data = data_preprocessing.load_data()
-    data = data_preprocessing.clean_data(data)
-    data = data_preprocessing.transform_categorical_features(data)
+    X_train, X_test, y_train, y_test = data_preprocessing.run_preprocessing_pipeline()
     
-    X, y = data_preprocessing.split_features_and_target(data)
-    X_resampled, y_resampled = data_preprocessing.apply_smoteenn(X, y)
-
-    X_train, X_test, y_train, y_test = data_preprocessing.split_train_test(X_resampled, y_resampled)
-    X_train, X_test = data_preprocessing.scale_numeric_features(X_train, X_test)
-
     # ✅ Train models
     train_and_track_model(LogisticRegression(), X_train, y_train, X_test, y_test, logistic_params, "logistic_model")
     train_and_track_model(DecisionTreeClassifier(), X_train, y_train, X_test, y_test, decision_tree_params, "decision_tree_model")

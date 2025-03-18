@@ -64,18 +64,20 @@ def split_features_and_target(churn_data: pd.DataFrame):
                                  'MultipleLines', 'StreamingMovies', 'StreamingTV'])
     y = churn_data['Churn']
     
-    base_dir = os.path.join("..", "Datasets", "Processed Data")
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Datasets", "ProcessedData"))
     file_name = "Ready_data_for_model.csv"
     
     # Construct the full file path    
     file_path = os.path.join(base_dir, file_name)
     
-    pd.concat([X, y], axis=1)[ 
-                                ['MonthlyCharges', 'tenure', 'TotalCharges', 
-                                'SeniorCitizen', 'Partner', 'Dependents', 
-                                'OnlineSecurity', 'TechSupport', 'PaperlessBilling', 
-                                'Contract', 'PaymentMethod', 'Churn']
-                            ].to_csv(file_path, index=False)
+    if os.path.exists(file_path):
+        pd.concat([X, y], axis=1)[ 
+                ['MonthlyCharges', 'tenure', 'TotalCharges', 
+                'SeniorCitizen', 'Partner', 'Dependents', 
+                'OnlineSecurity', 'TechSupport', 'PaperlessBilling', 
+                'Contract', 'PaymentMethod', 'Churn']
+            ].to_csv(file_path, index=False)
+        print("✅ Data saved to", file_path)
     
     return X, y
 
@@ -104,7 +106,10 @@ def scale_numeric_features(X_train: pd.DataFrame, X_test: pd.DataFrame):
     
     return X_train, X_test
 
-if __name__ == "__main__":
+def run_preprocessing_pipeline():
+    """Runs the full preprocessing pipeline."""
+    print("🚀 Starting Data Preprocessing...")
+
     # Load data
     data = load_data()
 
@@ -126,12 +131,22 @@ if __name__ == "__main__":
     # Scale numeric features
     X_train, X_test = scale_numeric_features(X_train, X_test)
 
-    base_dir = os.path.join("..", "Datasets", "Model Data")
-
+    model_data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Datasets", "ModelData"))
+    
+    # Create the directory if it doesn't exist yet to save the processed data in 'ModelData' directory.
+    if not os.path.exists(model_data_path):
+        print("Creating, ModelData directory")
+        os.makedirs(model_data_path)
+        
     # Save processed data
-    X_train.to_csv(f"{base_dir}/X_train.csv", index=False)
-    X_test.to_csv(f"{base_dir}/X_test.csv", index=False)
-    y_train.to_csv(f"{base_dir}/y_train.csv", index=False)
-    y_test.to_csv(f"{base_dir}/y_test.csv", index=False)
+    X_train.to_csv(f"{model_data_path}/X_train.csv", index=False)
+    X_test.to_csv(f"{model_data_path}/X_test.csv", index=False)
+    y_train.to_csv(f"{model_data_path}/y_train.csv", index=False)
+    y_test.to_csv(f"{model_data_path}/y_test.csv", index=False)
 
-    print("Preprocessing completed and files saved!")
+    print("✅ Preprocessing completed! Processed data saved to 'Datasets/ModelData/'.")
+
+    return X_train, X_test, y_train, y_test
+
+if __name__ == "__main__":
+    run_preprocessing_pipeline()  # ✅ Call the pipeline function
