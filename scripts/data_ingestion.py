@@ -4,7 +4,7 @@ import os
 def load_data():
     # Load the dataset
     
-    base_dir = os.path.join("..", "Datasets", "Telecom chustomer churn dataset")
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Datasets", "TelecomChustomerChurnDataset"))
     file_name = "WA_Fn-UseC_-Telco-Customer-Churn.csv"
     
     # Construct the full file path    

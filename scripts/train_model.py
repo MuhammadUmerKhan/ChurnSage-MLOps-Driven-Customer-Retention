@@ -49,8 +49,9 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
         mlflow.log_metric("roc_auc_score", roc_auc)
 
         # ✅ Ensure "../models/" directory exists
-        artifact_dir = os.path.join(os.getcwd(), "models")
-        # os.makedirs(artifact_dir, exist_ok=True)
+        artifact_dir = "models"
+
+        # ✅ Log model inside MLflow's `models/` directory
         mlflow.sklearn.log_model(best_model, artifact_path=f"{artifact_dir}/{model_name}")
 
         print(f"✅ Model '{model_name}' logged to MLflow with Accuracy: {accuracy:.4f}, F1-Score: {f1:.4f}")
@@ -59,7 +60,7 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
 
 if __name__ == "__main__":
     X_train, X_test, y_train, y_test = data_preprocessing.run_preprocessing_pipeline()
-    
+
     # ✅ Train models
     train_and_track_model(LogisticRegression(), X_train, y_train, X_test, y_test, logistic_params, "logistic_model")
     train_and_track_model(DecisionTreeClassifier(), X_train, y_train, X_test, y_test, decision_tree_params, "decision_tree_model")
