@@ -1,3 +1,4 @@
+import os
 import mlflow
 import mlflow.sklearn
 import pandas as pd
@@ -31,10 +32,12 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
 
 if __name__ == "__main__":
     # Load processed data
-    X_train = pd.read_csv("data/X_train.csv")
-    X_test = pd.read_csv("data/X_test.csv")
-    y_train = pd.read_csv("data/y_train.csv")
-    y_test = pd.read_csv("data/y_test.csv")
+    base_dir = os.path.join("..", "Datasets", "Model Data")
+    
+    X_train = pd.read_csv(f"{base_dir}/X_train.csv")
+    X_test = pd.read_csv(f"{base_dir}/X_test.csv")
+    y_train = pd.read_csv(f"{base_dir}/y_train.csv")
+    y_test = pd.read_csv(f"{base_dir}/y_test.csv")
 
     # Train different models and log them
     train_and_track_model(LogisticRegression(), X_train, y_train, X_test, y_test, logistic_params, "logistic_model")
