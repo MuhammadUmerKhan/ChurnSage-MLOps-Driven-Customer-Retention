@@ -6,7 +6,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
-
+from config.config import logistic_params, decision_tree_params, random_forest_params, knn_params
 
 mlflow.set_experiment("Customer Churn Prediction")
 
