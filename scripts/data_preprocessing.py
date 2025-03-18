@@ -4,6 +4,7 @@ from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from imblearn.combine import SMOTEENN
 from sklearn.model_selection import train_test_split
 import data_ingestion
+import os
 
 def load_data():
     """Load dataset from CSV file."""
@@ -63,6 +64,19 @@ def split_features_and_target(churn_data: pd.DataFrame):
                                  'MultipleLines', 'StreamingMovies', 'StreamingTV'])
     y = churn_data['Churn']
     
+    base_dir = os.path.join("..", "Datasets", "Processed Data")
+    file_name = "Ready_data_for_model.csv"
+    
+    # Construct the full file path    
+    file_path = os.path.join(base_dir, file_name)
+    
+    pd.concat([X, y], axis=1)[ 
+                                ['MonthlyCharges', 'tenure', 'TotalCharges', 
+                                'SeniorCitizen', 'Partner', 'Dependents', 
+                                'OnlineSecurity', 'TechSupport', 'PaperlessBilling', 
+                                'Contract', 'PaymentMethod', 'Churn']
+                            ].to_csv(file_path, index=False)
+    
     return X, y
 
 def apply_smoteenn(X: pd.DataFrame, y: pd.Series):
@@ -112,10 +126,12 @@ if __name__ == "__main__":
     # Scale numeric features
     X_train, X_test = scale_numeric_features(X_train, X_test)
 
+    base_dir = os.path.join("..", "Datasets", "Model Data")
+
     # Save processed data
-    X_train.to_csv("../Datasets/X_train.csv", index=False)
-    X_test.to_csv("../Datasets/X_test.csv", index=False)
-    y_train.to_csv("../Datasets/y_train.csv", index=False)
-    y_test.to_csv("../Datasets/y_test.csv", index=False)
+    X_train.to_csv(f"{base_dir}/X_train.csv", index=False)
+    X_test.to_csv(f"{base_dir}/X_test.csv", index=False)
+    y_train.to_csv(f"{base_dir}/y_train.csv", index=False)
+    y_test.to_csv(f"{base_dir}/y_test.csv", index=False)
 
     print("Preprocessing completed and files saved!")
