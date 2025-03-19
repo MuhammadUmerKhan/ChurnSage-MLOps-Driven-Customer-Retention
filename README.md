@@ -11,10 +11,11 @@ In the **highly competitive telecom industry**, customer churn (when customers l
 This project **leverages Machine Learning and MLOps** to build a predictive model that identifies **customers likely to churn** based on their **usage behavior, contract type, and payment history**.  
 
 💡 **What makes this project unique?**  
-✅ **Automated Machine Learning Pipeline** → From **data ingestion** to **model training & deployment**  
-✅ **MLOps Integration** → MLflow for **experiment tracking, model registry, and artifact storage**  
-✅ **Automated Model Selection & Registration** → Tracks the **best-performing model dynamically**  
-✅ **Future-Proof Design** → Prepares the model for **scalable deployment via API or Web UI**  
+- 👉 Automated Machine Learning Pipeline → From data ingestion to model training & deployment
+- 👉 MLOps Integration → MLflow for experiment tracking, model registry, and artifact storage
+- 👉 Automated Model Selection & Registration → Tracks the best-performing model dynamically
+- 👉 Integration of LLM with ChatQrok → Uses AI to predict churn based on customer feedback
+- 👉 Future-Proof Design → Prepares the model for scalable deployment via API or Web UI
 
 ---
 
@@ -32,45 +33,85 @@ This project **leverages Machine Learning and MLOps** to build a predictive mode
 - [📌 Conclusion](#-conclusion)
 
 ---
+# 📌 **Telecom Customer Churn Prediction with MLOps**
 
-## 📌 **Problem Statement**
-Customer retention is a **critical concern** in the telecom industry due to **high competition and acquisition costs**. The key challenge is:  
-**"Can we predict which customers are likely to churn and take proactive actions to retain them?"**  
 
-To solve this, we must:  
-✅ **Analyze customer behavior** using structured data  
-✅ **Identify key features** influencing customer churn  
-✅ **Train Machine Learning models** to predict churners accurately  
-✅ **Use MLOps to automate & track the model lifecycle**  
+
+## 🚀 **Project Overview**
+
+In the **highly competitive telecom industry**, customer churn (when customers leave for a competitor) is a major business challenge.\
+This project **leverages Machine Learning and MLOps** to build a predictive model that identifies **customers likely to churn** based on their **usage behavior, contract type, and payment history**.
+
+💡 **What makes this project unique?**\
+👉 **Automated Machine Learning Pipeline** → From **data ingestion** to **model training & deployment**\
+👉 **MLOps Integration** → MLflow for **experiment tracking, model registry, and artifact storage**\
+👉 **Automated Model Selection & Registration** → Tracks the **best-performing model dynamically**\
+👉 **Integration of LLM with ChatQrok** → Uses AI to predict churn based on customer feedback\
+👉 **Future-Proof Design** → Prepares the model for **scalable deployment via API or Web UI**
 
 ---
 
-## 🛠 **Solution Approach**
-Our solution **leverages Machine Learning & MLOps** to build a **reliable, scalable, and automated churn prediction system**.  
+## 📁 **Table of Contents**
+
+- [📌 Problem Statement](#-problem-statement)
+- [🛠️ Solution Approach](#-solution-approach)
+- [🔥 Project Features](#-project-features)
+- [🔀 MLOps Workflow](#-mlops-workflow)
+- [📂 Project Directory Structure](#-project-directory-structure)
+- [⚙️ Setup and Installation](#-setup-and-installation)
+- [🚀 Running the Automated Pipeline](#-running-the-automated-pipeline)
+- [📊 MLflow Tracking and Model Registry](#-mlflow-tracking-and-model-registry)
+- [🧩 Model Testing](#-model-testing)
+- [🌍 Deployment (Upcoming)](#-deployment-upcoming)
+- [📌 Conclusion](#-conclusion)
+
+---
+
+## 📌 **Problem Statement**
+
+Customer retention is a **critical concern** in the telecom industry due to **high competition and acquisition costs**. The key challenge is:\
+**"Can we predict which customers are likely to churn and take proactive actions to retain them?"**
+
+To solve this, we must:\
+👉 **Analyze customer behavior** using structured data\
+👉 **Identify key features** influencing customer churn\
+👉 **Train Machine Learning models** to predict churners accurately\
+👉 **Use MLOps to automate & track the model lifecycle**
+
+---
+
+## 🛠️ **Solution Approach**
+
+Our solution **leverages Machine Learning, MLOps & LLM** to build a **reliable, scalable, and automated churn prediction system**.
 
 ### **1️⃣ Data Processing & Feature Engineering**
-- ✅ **Data Cleaning & Handling Missing Values**
-- ✅ **Categorical Feature Encoding** (Label Encoding)
-- ✅ **Feature Scaling** using **MinMaxScaler**
-- ✅ **Handling Class Imbalance** using **SMOTEENN**
+
+- 👉 **Data Cleaning & Handling Missing Values**
+- 👉 **Categorical Feature Encoding** (Label Encoding)
+- 👉 **Feature Scaling** using **MinMaxScaler**
+- 👉 **Handling Class Imbalance** using **SMOTEENN**
 
 ### **2️⃣ Model Training & Experiment Tracking**
-- ✅ Train **Logistic Regression, Decision Tree, Random Forest, KNN**
-- ✅ Use **GridSearchCV for Hyperparameter Tuning**
-- ✅ **Track Experiments** using **MLflow**  
+
+- 👉 Train **Logistic Regression, Decision Tree, Random Forest, KNN**
+- 👉 Use **GridSearchCV for Hyperparameter Tuning**
+- 👉 **Track Experiments** using **MLflow**
 
 ### **3️⃣ Model Selection & Registry**
-- ✅ **Automatically register the best model** in **MLflow Model Registry**
-- ✅ **Assign model aliases** (`staging`, `production`) for streamlined versioning  
-- ✅ **Store models, hyperparameters, and metrics** in **MLflow artifacts**  
 
-### **4️⃣ Model Testing & Evaluation**
-- ✅ Load the **best production model** from MLflow  
-- ✅ **Test on unseen customer data**  
+- 👉 **Automatically register the best model** in **MLflow Model Registry**
+- 👉 **Assign model aliases** (`staging`, `production`) for streamlined versioning
+- 👉 **Store models, hyperparameters, and metrics** in **MLflow artifacts**
+
+### **4️⃣ Customer Feedback Analysis with LLM**
+
+- 👉 Use **ChatQrok LLM** to analyze **customer reviews & predict churn**
+- 👉 Implement an **NLP-powered chatbot** for sentiment-based churn prediction
 
 ### **5️⃣ Deployment (Upcoming)**
-- 🚀 **Expose model as an API** using **FastAPI/Flask**  
-- 🎨 **Create an interactive UI** using **Streamlit**  
+
+- 🚀 **Expose model as an API** using **FastAPI/Flask**
+- 🎨 **Create an interactive UI** using **Streamlit**
 
 ---
 
