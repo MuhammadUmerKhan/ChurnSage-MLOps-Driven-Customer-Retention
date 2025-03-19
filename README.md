@@ -1,7 +1,3 @@
-Here's a **more detailed and expanded README** with **comprehensive explanations, additional insights, and improved structure** to better guide users through the project. 🚀  
-
----
-
 # 📌 **Telecom Customer Churn Prediction with MLOps**
 
 ![churn 1.png](https://miro.medium.com/v2/resize:fit:1024/1*TgciopaOk-C8fwtPmmet3w.png)
