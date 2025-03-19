@@ -1,0 +1,1 @@
+{"columns": ["SeniorCitizen", "Partner", "Dependents", "tenure", "OnlineSecurity", "TechSupport", "Contract", "PaperlessBilling", "PaymentMethod", "MonthlyCharges", "TotalCharges"], "data": [[0, 1, 0, 0.1111111111111111, 0, 0, 0, 0, 1, 0.6533125350843585, 0.0710495066765888]]}
