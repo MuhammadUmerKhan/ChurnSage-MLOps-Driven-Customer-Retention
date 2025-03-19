@@ -1,7 +1,3 @@
-Here is a structured **Scripts.md** file that explains each script in your project, including its purpose, functionality, and database usage. This document provides a clear understanding of how your **Customer Churn Prediction with MLOps** pipeline works. 🚀  
-
----
-
 # 📜 **Scripts Overview - Customer Churn Prediction with MLOps**  
 
 ## 📌 **Introduction**
