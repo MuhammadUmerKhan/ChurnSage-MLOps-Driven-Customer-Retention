@@ -1,4 +1,5 @@
 import os
+import joblib
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
@@ -93,6 +94,12 @@ def scale_numeric_features(X_train: pd.DataFrame, X_test: pd.DataFrame):
     scaler = MinMaxScaler()
     X_train[columns_to_scale] = scaler.fit_transform(X_train[columns_to_scale])
     X_test[columns_to_scale] = scaler.transform(X_test[columns_to_scale])
+
+    # ✅ Save the scaler for deployment
+    scaler_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "models_joblib_files", "scaler.pkl"))
+    os.makedirs(os.path.dirname(scaler_path), exist_ok=True)
+    joblib.dump(scaler, scaler_path)
+    print(f"✅ Scaler saved at: {scaler_path}")
 
     return X_train, X_test
 
