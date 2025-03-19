@@ -1,7 +1,7 @@
 Customer-Churn-Prediction-with-NLP-Insights/
-│── Datasets/                       # 📂 Stores datasets used for training/testing
-│── models/                         # 📂 Stores trained model artifacts
-│── notebooks/                      # Keep old Jupyter experiments
+│── Datasets/                         # 📂 Stores datasets used for training/testing
+│── models/                           # 📂 Stores trained model artifacts
+│── notebooks/                        # Jupyter experiments
 │   ├── Customer Churn Prediction with NLP Insight.ipynb
 │── scripts/                          # 📂 Contains MLOps scripts for training, registration, etc.
 │   ├── data_ingestion.py             # 📝 Load raw data
@@ -10,6 +10,11 @@ Customer-Churn-Prediction-with-NLP-Insights/
 │   ├── register_best_model.py        # 📝 Register the best model
 │   ├── test_model.py                 # 📝 Load and test the model
 │   ├── train_model.py                # 📝 Train models and log to MLflow
+│── api/                              # 📂 New folder for FastAPI app
+│   ├── main.py                       # 🚀 FastAPI application entry point
+│   ├── model_loader.py               # 📝 Load ML model from MLflow
+│   ├── schemas.py                    # 📝 Define request/response schemas for API
+│   ├── utils.py                      # 📝 Utility functions for data processing
 │── pipeline.py                       # 🚀 Runs the entire MLOps pipeline
 │── mlflow.db                         # 📂 SQLite database for MLflow
 │── mlruns/                           # 📂 MLflow experiment tracking storage
