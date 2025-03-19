@@ -1,23 +1,18 @@
-customer_churn_mLOps_project/
-│── data/                          # Store raw and processed datasets
-│   ├── raw_data.csv
-│   ├── processed_data.csv
-│── scripts/                        # Store modular Python scripts
-│   ├── data_ingestion.py          # Load & preprocess data
-│   ├── data_preprocessing.py      # Feature engineering & transformation
-│   ├── train_model.py             # Train & evaluate models
-│   ├── evaluate_model.py          # Evaluate model performance
-│   ├── predict.py                 # Run model inference
-│── pipeline/                       # Automate workflows
-│   ├── ml_pipeline.py             # Automate data + training pipeline
+Customer-Churn-Prediction-with-NLP-Insights/
+│── Datasets/
+│── models/
 │── notebooks/                      # Keep old Jupyter experiments
-│   ├── customer_churn_exploration.ipynb
-│── models/                         # Store trained models
-│   ├── churn_model.pkl
-│── mlruns/                         # MLflow experiment tracking logs
-│── deployment/                      # Deployment scripts
-│   ├── app.py                     # FastAPI for serving the model
-│   ├── Dockerfile                  # Containerization
-│── config.yaml                      # Store all configurations
-│── requirements.txt                 # Dependencies
-│── README.md                        # Project documentation
+│   ├── Customer Churn Prediction with NLP Insight.ipynb
+│── scripts/
+│   ├── data_ingestion.py
+│   ├── data_preprocessing.py
+│   ├── hyperparams.py
+│   ├── register_best_model.py
+│   ├── test_model.py
+│   ├── train_model.py
+│── pipeline.py  <-- Runs everything automatically
+│── mlflow.db
+│── mlruns/
+│── streamlit_app.py
+│── requirements.txt
+│── README.md
