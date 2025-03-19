@@ -1,18 +1,18 @@
 Customer-Churn-Prediction-with-NLP-Insights/
-│── Datasets/
-│── models/
+│── Datasets/                       # 📂 Stores datasets used for training/testing
+│── models/                         # 📂 Stores trained model artifacts
 │── notebooks/                      # Keep old Jupyter experiments
 │   ├── Customer Churn Prediction with NLP Insight.ipynb
-│── scripts/
-│   ├── data_ingestion.py
-│   ├── data_preprocessing.py
-│   ├── hyperparams.py
-│   ├── register_best_model.py
-│   ├── test_model.py
-│   ├── train_model.py
-│── pipeline.py  <-- Runs everything automatically
-│── mlflow.db
-│── mlruns/
-│── streamlit_app.py
-│── requirements.txt
-│── README.md
+│── scripts/                          # 📂 Contains MLOps scripts for training, registration, etc.
+│   ├── data_ingestion.py             # 📝 Load raw data
+│   ├── data_preprocessing.py         # 📝 Clean and preprocess data
+│   ├── hyperparams.py                # 📝 Clean and preprocess hyperparams
+│   ├── register_best_model.py        # 📝 Register the best model
+│   ├── test_model.py                 # 📝 Load and test the model
+│   ├── train_model.py                # 📝 Train models and log to MLflow
+│── pipeline.py                       # 🚀 Runs the entire MLOps pipeline
+│── mlflow.db                         # 📂 SQLite database for MLflow
+│── mlruns/                           # 📂 MLflow experiment tracking storage
+│── streamlit_app.py                  # 🚀 Streamlit application
+│── requirements.txt                  # 📜 Project dependencies
+│── README.md                         # 📖 Project documentation
