@@ -127,7 +127,7 @@ def run_preprocessing_pipeline():
     y_train.to_csv(f"{model_data_path}/y_train.csv", index=False)
     y_test.to_csv(f"{model_data_path}/y_test.csv", index=False)
 
-    print("✅ Preprocessing completed! Processed data saved to 'Datasets/ModelData/'.")
+    print("✅ Preprocessing completed!")
     return X_train, X_test, y_train, y_test
 
 if __name__ == "__main__":
