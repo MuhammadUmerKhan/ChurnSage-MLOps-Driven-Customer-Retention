@@ -11,3 +11,4 @@ uvicorn==0.32.0
 langchain 
 langchain_groq
 mlflow
+python-dotenv
