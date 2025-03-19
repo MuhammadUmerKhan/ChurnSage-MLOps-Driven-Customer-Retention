@@ -1,0 +1,32 @@
+{
+  "dataframe_split": {
+    "columns": [
+      "SeniorCitizen",
+      "Partner",
+      "Dependents",
+      "tenure",
+      "OnlineSecurity",
+      "TechSupport",
+      "Contract",
+      "PaperlessBilling",
+      "PaymentMethod",
+      "MonthlyCharges",
+      "TotalCharges"
+    ],
+    "data": [
+      [
+        0,
+        1,
+        0,
+        0.9722222222222222,
+        1,
+        1,
+        2,
+        0,
+        1,
+        0.4651394422310757,
+        0.5252607704462106
+      ]
+    ]
+  }
+}

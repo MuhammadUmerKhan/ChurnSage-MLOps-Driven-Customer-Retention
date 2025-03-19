@@ -18,7 +18,7 @@ if __name__ == "__main__":
     run_step("data_ingestion.py")    # Load Data
     run_step("data_preprocessing.py") # Data Preprocessing
     run_step("train_model.py")       # Model Training & Tracking
-    run_step("register_best_model.py.py")    # Model Registration
+    run_step("register_best_model.py")    # Model Registration
     run_step("test_model.py")        # Model Testing & Prediction
 
     print("\n✅ Full pipeline executed successfully! 🚀")
