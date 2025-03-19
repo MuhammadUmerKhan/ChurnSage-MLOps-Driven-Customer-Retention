@@ -14,23 +14,24 @@ import data_preprocessing
 import warnings
 warnings.filterwarnings('ignore')
 
-# ✅ Set MLflow tracking URI (Make sure it points to mlflow.db)
+# ✅ Set MLflow tracking URI
 mlflow.set_tracking_uri("sqlite:///mlflow.db")
 mlflow.set_experiment("Customer Churn Prediction (Exp 2)")
 
 def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model_name):
+    print(f"🚀 Training {model_name}...")
     with mlflow.start_run(run_name=model_name):  
-        # Convert y_train and y_test to 1D arrays
         y_train = y_train.values.ravel()
         y_test = y_test.values.ravel()
 
         # Perform hyperparameter tuning
+        print(f"🔍 Performing hyperparameter tuning for {model_name}...")
         gridsearch = GridSearchCV(model, param_grid=params, scoring='f1', cv=5)
         gridsearch.fit(X_train, y_train)
 
-        # Get the best model and hyperparameters
         best_model = gridsearch.best_estimator_
         best_params = gridsearch.best_params_
+        print(f"✅ Best hyperparameters for {model_name}: {best_params}")
 
         # Get model predictions
         y_pred = best_model.predict(X_test)
@@ -42,6 +43,7 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
         recall = recall_score(y_test, y_pred)
         f1 = f1_score(y_test, y_pred)
         roc_auc = roc_auc_score(y_test, y_scores)
+        print(f"📊 Metrics for {model_name} - Accuracy: {accuracy:.4f}, F1: {f1:.4f}")
 
         # Log hyperparameters & metrics
         mlflow.log_params(best_params)
@@ -51,21 +53,21 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
         mlflow.log_metric("f1_score", f1)
         mlflow.log_metric("roc_auc_score", roc_auc)
 
-        # Log additional metadata
+        # Log metadata
         mlflow.set_tag("model_name", model_name)
         mlflow.set_tag("dataset_used", "Customer Churn Dataset")
         mlflow.set_tag("tracking_method", "SQLite Database")
 
         # ✅ Ensure "models" directory exists
         models_dir = "models"
-        if not os.path.exists(models_dir):
-            os.makedirs(models_dir, exist_ok=True)  # ✅ Create only if it doesn’t exist
+        os.makedirs(models_dir, exist_ok=True)
 
         # ✅ Save hyperparameters in JSON format
         params_path = os.path.join(models_dir, f"{model_name}_params.json")
         with open(params_path, "w") as f:
             json.dump(best_params, f, indent=4)
         mlflow.log_artifact(params_path, artifact_path="models")
+        print(f"📁 Saved hyperparameters at: {params_path}")
 
         # ✅ Save dataset details
         dataset_info = {
@@ -78,24 +80,32 @@ def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model
         with open(dataset_path, "w") as f:
             json.dump(dataset_info, f, indent=4)
         mlflow.log_artifact(dataset_path, artifact_path="models")
+        print(f"📁 Saved dataset info at: {dataset_path}")
 
-        # ✅ Log model inside MLflow’s managed storage
+        # ✅ Log model
         mlflow.sklearn.log_model(
             sk_model=best_model, 
             artifact_path="models",
             input_example=X_train.iloc[:1]  # ✅ Fixes missing input schema warning
         )
-
-        print(f"✅ Model '{model_name}' logged to MLflow with Accuracy: {accuracy:.4f}, F1-Score: {f1:.4f}")
+        print(f"✅ Model '{model_name}' logged to MLflow!")
 
         return best_model, best_params
 
 if __name__ == "__main__":
-    # ✅ Run preprocessing first
+    print("📊 Starting Data Preprocessing...")
     X_train, X_test, y_train, y_test = data_preprocessing.run_preprocessing_pipeline()
+    print("✅ Data Preprocessing Completed!")
 
     # ✅ Train and track different models
-    train_and_track_model(LogisticRegression(), X_train, y_train, X_test, y_test, logistic_params, "Logistic Regression Classifier")
-    train_and_track_model(DecisionTreeClassifier(), X_train, y_train, X_test, y_test, decision_tree_params, "Decision Tree Classifier")
-    train_and_track_model(RandomForestClassifier(), X_train, y_train, X_test, y_test, random_forest_params, "Random Forest Classifier")
-    train_and_track_model(KNeighborsClassifier(), X_train, y_train, X_test, y_test, knn_params, "KNN Classifier")
+    models = [
+        (LogisticRegression(), logistic_params, "Logistic Regression Classifier"),
+        (DecisionTreeClassifier(), decision_tree_params, "Decision Tree Classifier"),
+        (RandomForestClassifier(), random_forest_params, "Random Forest Classifier"),
+        (KNeighborsClassifier(), knn_params, "KNN Classifier"),
+    ]
+    
+    for model, params, name in models:
+        train_and_track_model(model, X_train, y_train, X_test, y_test, params, name)
+    
+    print("🎯 Pipeline execution completed!")
