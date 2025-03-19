@@ -51,13 +51,13 @@ Customer churn in the telecom industry leads to significant revenue loss. The ch
 ---
 
 ## 🔥 Project Features
-✅ **End-to-End MLOps Pipeline** (From Data Ingestion to Model Testing)
-✅ **MLflow Experiment Tracking & Model Registry**
-✅ **Automated Model Training & Evaluation**
-✅ **Best Model Selection using GridSearchCV**
-✅ **Artifact Storage & Model Versioning**
-✅ **Simple Automation Pipeline (Single Command Execution)**
-✅ **Future Deployment with FastAPI & Streamlit**
+- ✅ **End-to-End MLOps Pipeline** (From Data Ingestion to Model Testing)
+- ✅ **MLflow Experiment Tracking & Model Registry**
+- ✅ **Automated Model Training & Evaluation**
+- ✅ **Best Model Selection using GridSearchCV**
+- ✅ **Artifact Storage & Model Versioning**
+- ✅ **Simple Automation Pipeline (Single Command Execution)**
+- ✅ **Future Deployment with FastAPI & Streamlit**
 
 ---
 
