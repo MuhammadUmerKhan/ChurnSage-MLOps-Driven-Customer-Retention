@@ -1,5 +1,5 @@
 {
     "criterion": "entropy",
-    "max_depth": null,
+    "max_depth": 30,
     "n_estimators": 200
 }

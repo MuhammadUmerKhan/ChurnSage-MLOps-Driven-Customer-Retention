@@ -2,5 +2,5 @@
     "C": 10,
     "l1_ratio": 0.1,
     "penalty": "l1",
-    "solver": "liblinear"
+    "solver": "saga"
 }
