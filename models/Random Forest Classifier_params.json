@@ -1,5 +1,5 @@
 {
-    "criterion": "gini",
-    "max_depth": null,
-    "n_estimators": 100
+    "criterion": "entropy",
+    "max_depth": 40,
+    "n_estimators": 200
 }
