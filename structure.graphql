@@ -1,22 +1,28 @@
 Customer-Churn-Prediction-with-NLP-Insights/
 │── Datasets/                         # 📂 Stores datasets used for training/testing
 │── models/                           # 📂 Stores trained model artifacts
+│── database/                         # ✅ Store SQLite database
+│   ├── churn_predictions.db
+│   ├── mlflow.db
 │── notebooks/                        # Jupyter experiments
 │   ├── Customer Churn Prediction with NLP Insight.ipynb
 │── scripts/                          # 📂 Contains MLOps scripts for training, registration, etc.
-│   ├── data_ingestion.py             # 📝 Load raw data
-│   ├── data_preprocessing.py         # 📝 Clean and preprocess data
-│   ├── hyperparams.py                # 📝 Clean and preprocess hyperparams
-│   ├── register_best_model.py        # 📝 Register the best model
-│   ├── test_model.py                 # 📝 Load and test the model
-│   ├── train_model.py                # 📝 Train models and log to MLflow
-│── api/                              # 📂 New folder for FastAPI app
-│   ├── main.py                       # 🚀 FastAPI application entry point
-│   ├── model_loader.py               # 📝 Load ML model from MLflow
-│   ├── schemas.py                    # 📝 Define request/response schemas for API
-│   ├── utils.py                      # 📝 Utility functions for data processing
+│   ├── data_ingestion.py             
+│   ├── data_preprocessing.py         
+│   ├── hyperparams.py                
+│   ├── register_best_model.py        
+│   ├── test_model.py                 
+│   ├── train_model.py                
+│   ├── config.py
+│── api/                              # ✅ API-related files (FastAPI)
+│   ├── main.py
+│   ├── app.py
+│   ├── model_loader.py
+│   ├── database.py
+│   ├── utils.py
+│   ├── schemas.py
+│   ├── config.py
 │── pipeline.py                       # 🚀 Runs the entire MLOps pipeline
-│── mlflow.db                         # 📂 SQLite database for MLflow
 │── mlruns/                           # 📂 MLflow experiment tracking storage
 │── streamlit_app.py                  # 🚀 Streamlit application
 │── requirements.txt                  # 📜 Project dependencies
