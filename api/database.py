@@ -22,6 +22,7 @@ def init_db():
             PaymentMethod TEXT,
             MonthlyCharges REAL,
             TotalCharges REAL,
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
             Prediction TEXT
         )
     """)
@@ -31,6 +32,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS llm_feedback (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_feedback TEXT,
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
             llm_prediction TEXT,
             llm_reasoning TEXT
         )
@@ -148,7 +150,7 @@ def get_all_llm_feedback():
 # if __name__ == "__main__":
     
     # ✅ Initialize DB on Startup
-    # init_db()
+    # print(init_db())
     # save_data = save_customer_data(
     #     {
     # "SeniorCitizen": 0,
