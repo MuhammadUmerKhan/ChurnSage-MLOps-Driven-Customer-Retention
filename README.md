@@ -184,30 +184,6 @@ This starts the FastAPI server on **http://127.0.0.1:8000**.
 
 ---
 
-## 📊 **MLflow Tracking and Model Registry**
-### **1️⃣ View Experiment Runs**
-Launch MLflow UI to explore experiment tracking:
-```bash
-mlflow ui
-```
-📌 Navigate to **http://localhost:5000** to check experiment logs, metrics, and artifacts.
-
-### **2️⃣ Register the Best Model**
-```bash
-python3 scripts/register_best_model.py
-```
-This will:
-✅ **Select the best-performing model**  
-✅ **Register it in MLflow Model Registry**  
-✅ **Assign `staging` & `production` aliases**  
-
-### **3️⃣ Load the Best Model**
-```python
-import mlflow.pyfunc
-model = mlflow.pyfunc.load_model("models:/customer_churn_model@production")
-```
-
----
 
 ## **🧩 Model & LLM Testing (Postman)**
 Use **Postman** to send requests to the FastAPI server.
@@ -251,6 +227,31 @@ Use **Postman** to send requests to the FastAPI server.
     "llm_prediction": "Customer likely to leave",
     "llm_reasoning": "The customer is unhappy with service speed and considering alternatives, indicating a high churn risk."
 }
+```
+
+---
+
+## 📊 **MLflow Tracking and Model Registry**
+### **1️⃣ View Experiment Runs**
+Launch MLflow UI to explore experiment tracking:
+```bash
+mlflow ui
+```
+📌 Navigate to **http://localhost:5000** to check experiment logs, metrics, and artifacts.
+
+### **2️⃣ Register the Best Model**
+```bash
+python3 scripts/register_best_model.py
+```
+This will:\
+✅ **Select the best-performing model**  
+✅ **Register it in MLflow Model Registry**  
+✅ **Assign `staging` & `production` aliases**  
+
+### **3️⃣ Load the Best Model**
+```python
+import mlflow.pyfunc
+model = mlflow.pyfunc.load_model("models:/customer_churn_model@production")
 ```
 
 ---
