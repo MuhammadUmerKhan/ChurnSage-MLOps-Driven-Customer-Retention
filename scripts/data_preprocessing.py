@@ -1,5 +1,6 @@
 import os
 import joblib
+from config import preprocess_data_path, scaler_path
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
@@ -90,10 +91,9 @@ def split_features_and_target(churn_data: pd.DataFrame):
         y = churn_data['Churn']
 
         # Save processed data
-        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Datasets", "ProcessedData"))
-        os.makedirs(base_dir, exist_ok=True)  # ✅ Ensure directory exists
+        os.makedirs(preprocess_data_path, exist_ok=True)  # ✅ Ensure directory exists
         
-        file_path = os.path.join(base_dir, "Ready_data_for_model.csv")
+        file_path = os.path.join(preprocess_data_path, "Ready_data_for_model.csv")
         pd.concat([X, y], axis=1).to_csv(file_path, index=False)
         print(f"✅ Processed Data saved to: {file_path}")
 
@@ -141,7 +141,6 @@ def scale_numeric_features(X_train: pd.DataFrame, X_test: pd.DataFrame):
         X_test[columns_to_scale] = scaler.transform(X_test[columns_to_scale])
 
         # ✅ Save the scaler for deployment
-        scaler_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "models", "scaler.pkl"))
         os.makedirs(os.path.dirname(scaler_path), exist_ok=True)
         joblib.dump(scaler, scaler_path)
         print(f"✅ Scaler saved at: {scaler_path}")
