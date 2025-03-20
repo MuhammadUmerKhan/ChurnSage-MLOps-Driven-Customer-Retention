@@ -2,7 +2,7 @@ import os
 import json
 import mlflow
 import mlflow.sklearn
-import pandas as pd
+from config import mlflow_db_path
 from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -16,7 +16,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # ✅ Set MLflow tracking URI
-mlflow.set_tracking_uri("sqlite:///mlflow.db")
+mlflow.set_tracking_uri(f"sqlite:///{mlflow_db_path}")
 mlflow.set_experiment("Customer Churn Prediction (Exp 2)")
 
 def train_and_track_model(model, X_train, y_train, X_test, y_test, params, model_name):
