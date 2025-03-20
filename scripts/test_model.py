@@ -1,11 +1,12 @@
 import mlflow.pyfunc
 import pandas as pd
+from config import mlflow_db_path, model_data_path
 import os
 
 def load_production_model(model_name: str):
     """Loads the latest production model from MLflow with error handling."""
     try:
-        mlflow.set_tracking_uri("sqlite:///mlflow.db")
+        mlflow.set_tracking_uri(f"sqlite:///{mlflow_db_path}")
         print(f"🔍 Attempting to load the latest production model: {model_name}...")
 
         loaded_model = mlflow.pyfunc.load_model(f"models:/{model_name}@production")
@@ -48,7 +49,6 @@ def make_prediction(model, data_path: str):
 if __name__ == "__main__":
     # Define paths
     model_name = "customer_churn_model"
-    model_data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Datasets", "ModelData"))
 
     # Load and test the model
     print("\n🚀 Starting Model Testing Pipeline...")
