@@ -1,0 +1,6 @@
+{
+    "num_samples": 5762,
+    "num_features": 11,
+    "train_size": 4609,
+    "test_size": 1153
+}
