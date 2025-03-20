@@ -7,15 +7,15 @@ import joblib
 import dotenv
 import langchain_groq
 from langchain.schema import HumanMessage
+from scripts import config
 
 dotenv.load_dotenv()
 
 # ✅ Load MLflow production model
-mlflow.set_tracking_uri("sqlite:///mlflow.db")
+mlflow.set_tracking_uri(f"sqlite:///{config.mlflow_db_path}")
 model_name = "customer_churn_model"
 loaded_model = mlflow.pyfunc.load_model(f"models:/{model_name}@production")
-scaler_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "models_joblib_files", "scaler.pkl"))
-scaler = joblib.load(scaler_path)
+scaler = joblib.load(config.scaler_path)
 
 st.set_page_config(
     page_title="Customer Churn Prediction",
@@ -106,8 +106,7 @@ with tab1:
         except Exception as e:
             st.error(f"❌ Error during prediction: {str(e)}")
 with tab2:
-    GROK_API_KEY = os.getenv("GROK_API_KEY")
-    llm = langchain_groq.ChatGroq(groq_api_key=GROK_API_KEY, model_name="qwen-2.5-32b")
+    llm = langchain_groq.ChatGroq(groq_api_key=config.GROK_API_KEY, model_name="qwen-2.5-32b")
     
     def predict_churn_with_llm(user_feedback):
         """Sends user feedback to the LLM and returns churn prediction."""
