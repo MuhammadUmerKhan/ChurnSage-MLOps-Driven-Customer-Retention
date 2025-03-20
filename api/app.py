@@ -98,7 +98,8 @@ with tab2:
             with st.spinner("Analyzing review with LLM... 🤖"):
                 response = send_api_request("predict_review", {"user_feedback": user_feedback})
                 if response:
-                    st.write(f"🔮 {response['review_prediction']}")
+                    st.write(f"🔮 Prediction: {response['llm_prediction']}")
+                    st.write(f"🔮 Reasoning {response['llm_reasoning']}")
 
 # ✅ Footer
 st.markdown('<div class="footer">Developed by <a href="https://portfolio-sigma-mocha-67.vercel.app/" target="_blank" style="color: #2980B9;">Muhammad Umer Khan</a> 🚀</div>', unsafe_allow_html=True)
