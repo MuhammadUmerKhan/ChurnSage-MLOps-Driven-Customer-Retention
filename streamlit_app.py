@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import mlflow.pyfunc
-import os
 import joblib
 import dotenv
 import langchain_groq
