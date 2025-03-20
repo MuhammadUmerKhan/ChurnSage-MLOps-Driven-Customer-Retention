@@ -172,7 +172,7 @@ pip install -r requirements.txt
 
 ### **3️⃣ Initialize MLflow Tracking**
 ```bash
-mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlruns
+mlflow server --backend-store-uri sqlite:///database/mlflow.db --default-artifact-root ./mlruns
 ```
 
 ---
