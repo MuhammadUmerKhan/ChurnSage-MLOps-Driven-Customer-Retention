@@ -1,12 +1,13 @@
 import mlflow
 from mlflow.tracking import MlflowClient
+from config import mlflow_db_path
 
 def get_best_model(experiment_name: str):
     """Finds the best model based on the highest F1-score and prints detailed logs."""
     try:
         print(f"🔍 Searching for the best model in experiment: {experiment_name}")
 
-        mlflow.set_tracking_uri("sqlite:///mlflow.db")
+        mlflow.set_tracking_uri(f"sqlite:///{mlflow_db_path}")
         experiment = mlflow.get_experiment_by_name(experiment_name)
 
         if experiment is None:
