@@ -11,27 +11,25 @@ This project **leverages Machine Learning and MLOps** to build a predictive mode
 - 👉 MLOps Integration → MLflow for experiment tracking, model registry, and artifact storage
 - 👉 Automated Model Selection & Registration → Tracks the best-performing model dynamically
 - 👉 Integration of LLM with ChatQrok → Uses AI to predict churn based on customer feedback
+- 👉 Integrates FastAPI → Real-time predictions
 - 👉 Future-Proof Design → Prepares the model for scalable deployment via API or Web UI
 
 ---
 
-## 📑 **Table of Contents**
+## **📁 Table of Contents**
 - [📌 Problem Statement](#-problem-statement)
-- [🛠 Solution Approach](#-solution-approach)
+- [🛠️ Solution Approach](#-solution-approach)
 - [🔥 Project Features](#-project-features)
 - [🔁 MLOps Workflow](#-mlops-workflow)
-- [📂 Project Directory Structure](#-project-directory-structure)
 - [⚙️ Setup and Installation](#️-setup-and-installation)
 - [🚀 Running the Automated Pipeline](#-running-the-automated-pipeline)
+- [🖥️ Running the FastAPI Server](#-running-the-fastapi-server)
 - [📊 MLflow Tracking and Model Registry](#-mlflow-tracking-and-model-registry)
-- [🧪 Model Testing](#-model-testing)
-- [🌍 Deployment (Upcoming)](#-deployment-upcoming)
+- [🧩 Model & LLM Testing (Postman)](#-model--llm-testing-postman)
+- [📦 Database Integration](#-database-integration)
 - [📌 Conclusion](#-conclusion)
 
 ---
-# 📌 **Telecom Customer Churn Prediction with MLOps**
-
-
 
 ## 🚀 **Project Overview**
 
@@ -43,23 +41,8 @@ This project **leverages Machine Learning and MLOps** to build a predictive mode
 👉 **MLOps Integration** → MLflow for **experiment tracking, model registry, and artifact storage**\
 👉 **Automated Model Selection & Registration** → Tracks the **best-performing model dynamically**\
 👉 **Integration of LLM with ChatQrok** → Uses AI to predict churn based on customer feedback\
+👉 **Database Storage** (SQLite) for customer data & LLM responses\
 👉 **Future-Proof Design** → Prepares the model for **scalable deployment via API or Web UI**
-
----
-
-## 📁 **Table of Contents**
-
-- [📌 Problem Statement](#-problem-statement)
-- [🛠️ Solution Approach](#-solution-approach)
-- [🔥 Project Features](#-project-features)
-- [🔀 MLOps Workflow](#-mlops-workflow)
-- [📂 Project Directory Structure](#-project-directory-structure)
-- [⚙️ Setup and Installation](#-setup-and-installation)
-- [🚀 Running the Automated Pipeline](#-running-the-automated-pipeline)
-- [📊 MLflow Tracking and Model Registry](#-mlflow-tracking-and-model-registry)
-- [🧩 Model Testing](#-model-testing)
-- [🌍 Deployment (Upcoming)](#-deployment-upcoming)
-- [📌 Conclusion](#-conclusion)
 
 ---
 
@@ -191,6 +174,16 @@ This will sequentially execute:
 
 ---
 
+## **🖥️ Running the FastAPI Server**
+Once the model is trained and registered, run **FastAPI** to serve real-time predictions:
+
+```bash
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+This starts the FastAPI server on **http://127.0.0.1:8000**.
+
+---
+
 ## 📊 **MLflow Tracking and Model Registry**
 ### **1️⃣ View Experiment Runs**
 Launch MLflow UI to explore experiment tracking:
@@ -216,6 +209,73 @@ model = mlflow.pyfunc.load_model("models:/customer_churn_model@production")
 
 ---
 
+## **🧩 Model & LLM Testing (Postman)**
+Use **Postman** to send requests to the FastAPI server.
+
+### **1️⃣ Test Churn Prediction (POST Request)**
+- **Endpoint:** `http://127.0.0.1:8000/predict`
+- **Request Body:**
+```json
+{
+    "SeniorCitizen": 1,
+    "Partner": 0,
+    "Dependents": 0,
+    "tenure": 24,
+    "OnlineSecurity": 1,
+    "TechSupport": 0,
+    "Contract": 1,
+    "PaperlessBilling": 1,
+    "PaymentMethod": 3,
+    "MonthlyCharges": 79.99,
+    "TotalCharges": 1899.99
+}
+```
+- **Response:**
+```json
+{
+    "prediction": "Customer will stay"
+}
+```
+
+### **2️⃣ Test LLM Feedback Analysis**
+- **Endpoint:** `http://127.0.0.1:8000/predict-llm`
+- **Request Body:**
+```json
+{
+    "user_feedback": "The service is really slow, and I am considering switching providers!"
+}
+```
+- **Response:**
+```json
+{
+    "llm_prediction": "Customer likely to leave",
+    "llm_reasoning": "The customer is unhappy with service speed and considering alternatives, indicating a high churn risk."
+}
+```
+
+---
+
+## **📦 Database Integration**
+This project **stores data in an SQLite database**.
+
+### **1️⃣ Customer Churn Data**
+**Table:** `customer_data`
+Stores **customer input features & churn predictions**.
+
+| SeniorCitizen | Partner | Dependents | tenure | OnlineSecurity | TechSupport | Contract | PaperlessBilling | PaymentMethod | MonthlyCharges | TotalCharges | Prediction |
+|--------------|---------|------------|--------|---------------|------------|---------|-----------------|--------------|--------------|------------|------------|
+| No          | Yes     | No         | 24     | Yes           | No         | One year | Yes            | Credit Card  | 79.99        | 1899.99    | Customer will stay |
+
+### **2️⃣ LLM Feedback Analysis**
+**Table:** `llm_feedback`
+Stores **customer reviews & LLM predictions**.
+
+| user_feedback | llm_prediction | llm_reasoning |
+|--------------|---------------|--------------|
+| "Service is slow, considering switching providers!" | Customer likely to leave | The customer is unhappy with service speed and considering alternatives. |
+
+---
+
 ## 🧪 **Model Testing**
 Once the model is registered, **test it with new customer data**:
 ```bash
@@ -225,18 +285,16 @@ python3 scripts/test_model.py
 
 ---
 
-## 🌍 **Deployment (Upcoming)**
-Future improvements:
-- **FastAPI/Flask API** → Serve predictions via REST API  
-- **Streamlit Web App** → Interactive UI for churn predictions  
-- **CI/CD Integration** → Automate training and deployment  
+## **📌 Conclusion**
+This project demonstrates a **complete MLOps workflow** integrating:
+✅ **MLflow for experiment tracking**  
+✅ **FastAPI for real-time model deployment**  
+✅ **ChatQrok LLM for feedback-based churn prediction**  
+✅ **SQLite database for customer data storage**  
 
----
+💡 **Next Steps:**  
+- 🖥️ **Deploy FastAPI** on cloud services  
+- 📊 **Improve LLM predictions** using more advanced NLP models  
+- 🔧 **Enhance Streamlit UI** for better customer insights  
 
-## 📌 **Conclusion**
-This project demonstrates a **complete MLOps workflow** for customer churn prediction, integrating **MLflow tracking, automated pipelines, and model registry**.  
-Future work will focus on **deployment** to make the model accessible via an API or web application.
-
-💡 **Want to contribute?** Fork the repo and submit a PR! 🚀  
-
----
+🔹 **Want to contribute?** Fork the repo and submit a PR! 🚀 
