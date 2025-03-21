@@ -1,6 +1,6 @@
 import pandas as pd
 import joblib
-from config import scaler_path
+from configs import scaler_path
 import os
 
 def preprocess_input(input_df):
