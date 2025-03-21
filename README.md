@@ -7,12 +7,14 @@ In the **highly competitive telecom industry**, customer churn (when customers l
 This project **leverages Machine Learning and MLOps** to build a predictive model that identifies **customers likely to churn** based on their **usage behavior, contract type, and payment history**.  
 
 💡 **What makes this project unique?**  
-- 👉 Automated Machine Learning Pipeline → From data ingestion to model training & deployment
-- 👉 MLOps Integration → MLflow for experiment tracking, model registry, and artifact storage
-- 👉 Automated Model Selection & Registration → Tracks the best-performing model dynamically
-- 👉 Integration of LLM with ChatQrok → Uses AI to predict churn based on customer feedback
-- 👉 Integrates FastAPI → Real-time predictions
-- 👉 Future-Proof Design → Prepares the model for scalable deployment via API or Web UI
+- 👉 **Automated Machine Learning Pipeline** → From data ingestion to model training & deployment
+- 👉 **MLOps Integration** → MLflow for experiment tracking, model registry, and artifact storage
+- 👉 **Automated Model Selection & Registration** → Tracks the best-performing model dynamically
+- 👉 **Integration of LLM with ChatQrok** → Uses AI to predict churn based on customer feedback
+- 👉 **Integrates FastAPI** → Real-time predictions
+- 👉 **Database Integration** → Stores customer inputs & predictions in SQLite
+- 👉 **Bulk CSV Upload & Prediction** → Allows batch processing of customer data
+- 👉 **Future-Proof Design** → Prepares the model for scalable deployment via API or Web UI
 
 ---
 
