@@ -1,6 +1,7 @@
 import sqlite3
-from config import churn_db_path
+import os
 
+churn_db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "database", "churn_predictions.db"))
 # ✅ Initialize Database
 def init_db():
     """Creates SQLite database if it doesn't exist."""
