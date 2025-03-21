@@ -22,6 +22,7 @@ This project **leverages Machine Learning and MLOps** to build a predictive mode
 - [📌 Problem Statement](#-problem-statement)
 - [🛠️ Solution Approach](#-solution-approach)
 - [🔥 Project Features](#-project-features)
+- [📊 Insights](#-Insights)
 - [🔁 MLOps Workflow](#-mlops-workflow)
 - [⚙️ Setup and Installation](#️-setup-and-installation)
 - [🚀 Running the Automated Pipeline](#-running-the-automated-pipeline)
@@ -105,7 +106,17 @@ Our solution **leverages Machine Learning, MLOps & LLM** to build a **reliable, 
 🔹 **Future Deployment with FastAPI & Streamlit UI**  
 
 ---
+## 📊 **Insights**
 
+
+| Visualization Type      | Distribution/Insights |
+|------------------------|----------------------|
+| **Categorical Feature** | ![Feature Importance](https://raw.githubusercontent.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/main/insights/categorical_feature.png) |
+| **Confusion Matrix**   | ![Confusion Matrix](https://raw.githubusercontent.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/main/insights/churn_analysis.png) |
+| **Churn Distribution** | ![Churn Distribution](https://raw.githubusercontent.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/main/insights/churn_vs_not_churn.png) |
+| **Tech Support**    | ![Customer Tenure Distribution](https://raw.githubusercontent.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/main/insights/onlien%20analysis.png) |
+
+---
 ## 🔁 **MLOps Workflow**
 Our project follows an **industry-standard MLOps pipeline**:
 
@@ -140,18 +151,6 @@ Customer-Churn-Prediction-with-NLP-Insights/
 │── requirements.txt
 │── README.md
 ```
-
----
-## 📊 Insights
-
-
-| Visualization Type      | Distribution/Insights |
-|------------------------|----------------------|
-| **Categorical Feature** | ![Feature Importance](https://raw.githubusercontent.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/main/insights/categorical_feature.png) |
-| **Confusion Matrix**   | ![Confusion Matrix](https://raw.githubusercontent.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/main/insights/churn_analysis.png) |
-| **Churn Distribution** | ![Churn Distribution](https://raw.githubusercontent.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/main/insights/churn_vs_not_churn.png) |
-| **Tech Support**    | ![Customer Tenure Distribution](https://raw.githubusercontent.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/main/insights/onlien%20analysis.png) |
-
 ---
 
 ## ⚙️ **Setup and Installation**
