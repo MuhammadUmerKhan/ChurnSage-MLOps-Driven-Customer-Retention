@@ -185,7 +185,7 @@ with tab3:
 # 🚀 TAB 4: Bulk Prediction from CSV
 with tab4:
     st.markdown('<div class="section-title">📂 Bulk CSV Prediction</div>', unsafe_allow_html=True)
-    uploaded_file = st.file_uploader("Upload a cleaned CSV file", type=["csv"])
+    uploaded_file = st.file_uploader("Upload a cleaned Labled CSV file", type=["csv"])
     
     if uploaded_file is not None:
         try:
