@@ -6,6 +6,7 @@ import joblib
 import dotenv
 import langchain_groq
 from langchain.schema import HumanMessage
+from api import database
 from scripts import config
 
 dotenv.load_dotenv()
@@ -96,7 +97,10 @@ with tab1:
             # Scale numeric features
             input_df[['tenure', 'MonthlyCharges', 'TotalCharges']] = scaler.transform(input_df[['tenure', 'MonthlyCharges', 'TotalCharges']])
             prediction = loaded_model.predict(input_df)
-
+            
+            churn_prediction = "Customer likely to leave" if prediction[0] == 1 else "Customer will stay"
+            database.save_customer_data(input_df, churn_prediction)
+            
             # Display result
             if prediction[0] == 1:
                 st.error(f"😢 Customer may leave!")
