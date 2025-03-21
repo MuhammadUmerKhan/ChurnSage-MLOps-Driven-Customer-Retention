@@ -3,7 +3,7 @@ import mlflow.pyfunc
 import langchain_groq
 from langchain.schema import HumanMessage
 from functools import lru_cache
-from config import GROK_API_KEY, mlflow_db_path
+from configs import GROK_API_KEY, mlflow_db_path
 
 # ✅ Set up LLM API (ChatGroq)
 
