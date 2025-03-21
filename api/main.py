@@ -29,7 +29,7 @@ def predict_churn(data: schemas.ChurnInput):
 
         # ✅ Predict churn
         prediction = model.predict(processed_data)
-        churn_prediction = "Customer likely to leave" if prediction[0] == 1 else "Customer will stay"
+        churn_prediction = "Yes" if prediction[0] == 1 else "No"
 
         # ✅ Store data in DB
         database.save_customer_data(input_data, churn_prediction)
