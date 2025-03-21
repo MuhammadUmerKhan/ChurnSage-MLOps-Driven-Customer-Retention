@@ -287,6 +287,8 @@ python3 scripts/test_model.py
 ✅ This loads the **latest production model** and makes **predictions on unseen data**.
 
 ---
+#### 🧪 **[Streamlit Deplyed Demo](https://customer-churn-prediction-with-nlp-insights-rlazeungatswsd5e4c.streamlit.app/)**
+---
 
 ## **📌 Conclusion**
 This project demonstrates a **complete MLOps workflow** integrating:
