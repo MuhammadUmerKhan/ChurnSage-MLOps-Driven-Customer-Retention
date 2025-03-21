@@ -142,6 +142,17 @@ Customer-Churn-Prediction-with-NLP-Insights/
 ```
 
 ---
+## 📊 Insights
+
+
+| Visualization Type      | Distribution/Insights |
+|------------------------|----------------------|
+| **Categorical Feature** | ![Feature Importance](https://raw.githubusercontent.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/main/insights/categorical_feature.png) |
+| **Confusion Matrix**   | ![Confusion Matrix](https://raw.githubusercontent.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/main/insights/churn_analysis.png) |
+| **Churn Distribution** | ![Churn Distribution](https://raw.githubusercontent.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/main/insights/churn_vs_not_churn.png) |
+| **Tech Support**    | ![Customer Tenure Distribution](https://raw.githubusercontent.com/MuhammadUmerKhan/Customer-Churn-Prediction-with-NLP-Insights/main/insights/onlien%20analysis.png) |
+
+---
 
 ## ⚙️ **Setup and Installation**
 ### **1️⃣ Clone the Repository**
