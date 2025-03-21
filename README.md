@@ -90,7 +90,7 @@ Our solution **leverages Machine Learning, MLOps & LLM** to build a **reliable, 
 - 👉 Use **ChatQrok LLM** to analyze **customer reviews & predict churn**
 - 👉 Implement an **NLP-powered chatbot** for sentiment-based churn prediction
 
-### **5️⃣ Deployment (Upcoming)**
+### **5️⃣ Deployment**
 
 - 🚀 **Expose model as an API** using **FastAPI/Flask**
 - 🎨 **Create an interactive UI** using **Streamlit**
