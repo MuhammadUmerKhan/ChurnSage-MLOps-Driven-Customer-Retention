@@ -103,67 +103,6 @@ with tab2:
                     st.write(f"🔮 Prediction: {response['llm_prediction']}")
                     st.write(f"🔮 Reasoning {response['llm_reasoning']}")
 
-# 🚀 TAB 3: View Stored Predictions
-with tab3:
-    st.markdown('<div class="section-title">📊 View Stored Predictions</div>', unsafe_allow_html=True)
-
-    # ✅ Display stored customer churn predictions
-    st.subheader("📌 Stored Customer Churn Predictions")
-    customer_data = database.get_all_customer_data()
-    customer_data = pd.DataFrame(customer_data, columns=[
-            "ID", "Senior Citizen", "Partner", "Dependents", "tenure", "Online Security", "Tech Support","Contract",
-            "Paperless Billing", "Payment Method", "Monthly Charges", "Total Charges", "Timestamp", "Prediction"
-        ])
-    st.dataframe(customer_data, hide_index=True, height=200)
-
-    # ✅ Display stored LLM feedback analysis
-    st.subheader("📌 Stored LLM Feedback")
-    llm_feedback_data = database.get_all_llm_feedback()
-    st.dataframe(pd.DataFrame(llm_feedback_data, 
-                              columns=["ID", "User Feedback", "Timestamp", "LLM Prediction", "LLM Reasoning"]), 
-                                hide_index=True)
-
-
-# 🚀 TAB 4: Bulk Prediction from CSV
-with tab4:
-    st.markdown('<div class="section-title">📂 Bulk CSV Prediction</div>', unsafe_allow_html=True)
-    uploaded_file = st.file_uploader("Upload a cleaned CSV file", type=["csv"])
-    
-    if uploaded_file is not None:
-        try:
-            # ✅ Read the uploaded CSV
-            df_upload = pd.read_csv(uploaded_file)
-            st.write("✔️ File successfully uploaded! Preview:")
-            st.dataframe(df_upload, height=200)
-            
-            df_pred = df_upload.copy()
-            # ✅ Ensure correct columns exist
-            required_columns = ['SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'OnlineSecurity',
-                                'TechSupport', 'Contract', 'PaperlessBilling', 'PaymentMethod',
-                                'MonthlyCharges', 'TotalCharges']
-            if not all(col in df_pred.columns for col in required_columns):
-                st.error("⚠️ Uploaded CSV is missing required columns!")
-            else:
-                # ✅ Scale numeric features
-                df_pred[['tenure', 'MonthlyCharges', 'TotalCharges']] = scaler.transform(
-                    df_pred[['tenure', 'MonthlyCharges', 'TotalCharges']]
-                )
-                
-                # ✅ Get predictions
-                predictions = loaded_model.predict(df_pred)
-                df_upload['Prediction'] = np.where(predictions == 1, "Yes", "No")
-                
-                # ✅ Display and allow downloading
-                st.success("✔️ Predictions completed!")
-                st.dataframe(df_upload, height=200)
-                
-                # ✅ Downloadable CSV
-                csv = df_upload.to_csv(index=False).encode('utf-8')
-                st.download_button("📥 Download Predictions CSV", csv, "churn_predictions.csv", "text/csv")
-                
-        except Exception as e:
-            st.error(f"❌ Error processing file: {str(e)}")
-
 
 # ✅ Footer
 st.markdown('<div class="footer">Developed by <a href="https://portfolio-sigma-mocha-67.vercel.app/" target="_blank" style="color: #2980B9;">Muhammad Umer Khan</a> 🚀</div>', unsafe_allow_html=True)
