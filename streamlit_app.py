@@ -1,13 +1,9 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import mlflow.pyfunc
-import joblib
-import dotenv
-import langchain_groq
+import mlflow.pyfunc, joblib, dotenv, langchain_groq, pickle, re
 from langchain.schema import HumanMessage
 from api import database
-import pickle
 from scripts import config
 
 dotenv.load_dotenv()
@@ -126,7 +122,7 @@ with tab2:
         else:
             try:
                 # ✅ Load LLM
-                llm = langchain_groq.ChatGroq(groq_api_key=config.GROK_API_KEY, model_name="qwen-2.5-32b")
+                llm = langchain_groq.ChatGroq(groq_api_key=config.GROK_API_KEY, model_name="qwen-qwq-32b")
 
                 # ✅ Construct prompt
                 prompt = f"""
@@ -148,7 +144,8 @@ with tab2:
 
                 # ✅ Get LLM response
                 response = llm.invoke([HumanMessage(content=prompt)]).content.strip()
-
+                # Remove any <think> tags
+                response = re.sub(r'<think>.*?</think>', '', response, flags=re.DOTALL).strip()
                 # ✅ Parse LLM response
                 if "Customer likely to leave" in response:
                     llm_prediction = "Yes"
