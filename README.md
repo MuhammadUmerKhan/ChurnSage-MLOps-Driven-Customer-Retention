@@ -301,7 +301,7 @@ python3 scripts/test_model.py
 ---
 
 ## **📌 Conclusion**
-This project demonstrates a **complete MLOps workflow** integrating:
+This project demonstrates a **complete MLOps workflow** integrating:<br>
 ✅ **MLflow for experiment tracking**  
 ✅ **FastAPI for real-time model deployment**  
 ✅ **ChatQrok LLM for feedback-based churn prediction**  
