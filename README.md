@@ -346,7 +346,6 @@ Anyone can pull and run the app using:
 docker pull muhammadumerkhan/customer-churn-predictor
 docker run -p 8501:8501 muhammadumerkhan/customer-churn-predictor
 ```
-
 ---
 ## **📌 Conclusion**
 This project demonstrates a **complete MLOps workflow** integrating:<br>
