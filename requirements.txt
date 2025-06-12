@@ -12,3 +12,4 @@ langchain
 langchain_groq
 mlflow
 python-dotenv
+streamlit
