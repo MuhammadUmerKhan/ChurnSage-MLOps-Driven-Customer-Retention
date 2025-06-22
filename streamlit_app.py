@@ -10,8 +10,10 @@ dotenv.load_dotenv()
 
 # ✅ Load MLflow production model
 mlflow.set_tracking_uri(f"sqlite:///{config.mlflow_db_path}")
+
 # model_name = "customer_churn_model"
 # loaded_model = mlflow.pyfunc.load_model(f"models:/{model_name}@production")
+
 with open("./mlruns/2/356b34f4a73c478fa27eeba06f16b349/artifacts/models/model.pkl", "rb") as model_file:
     loaded_model = pickle.load(model_file)
     print("✅ Model successfully loaded!")
