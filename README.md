@@ -1,4 +1,4 @@
-# 📌 **MLOps-Driven Customer Churn Prediction with LLM Insights**
+# 📌 **📉 ChurnSage: MLOps-Driven Customer Retention**
 
 ![churn 1.png](https://miro.medium.com/v2/resize:fit:1024/1*TgciopaOk-C8fwtPmmet3w.png)
 
