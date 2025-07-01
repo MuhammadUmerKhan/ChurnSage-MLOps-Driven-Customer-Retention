@@ -1,0 +1,12 @@
+● ChurnSage: MLOps-Driven Customer Retention                                                                Personal Project | 2025
+• Challenge: Accurately predicting churn from a highly imbalanced telecom dataset while ensuring cloud scalability and
+            automation.
+• Action:
+    • Built a modular ML pipeline with SMOTEENN balancing, encoding, scaling, and GridSearchCV-based model selection.
+    • Trained Logistic Regression, Random Forest, and XGBoost models, tracking all experiments via MLflow.
+    • Trained and evaluated models on Azure Cloud Notebooks using managed compute and cloud tracking.
+    • Deployed the best model via FastAPI with real-time REST APIs and SQLite storage.
+    • Integrated LLMs (Qwen) to analyze user reviews and generate churn explanations.
+• Result:
+    • Achieved ~94% test accuracy. Delivered a production-ready pipeline supporting batch predictions, LLM-based
+    insights, and automated CI-ready execution.
