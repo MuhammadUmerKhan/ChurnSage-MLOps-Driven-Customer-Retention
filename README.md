@@ -305,40 +305,22 @@ To add Dockerization and Docker Hub usage instructions without touching any of t
 ---
 
 ## 🐳 **Dockerization & Deployment**
-
-You can easily run this project using Docker and share or deploy it from Docker Hub.
-
-### ✅ **Build the Docker Image**
-
-Make sure your `Dockerfile` is correctly set up. Then run:
-
-```bash
-docker build -t muhammadumerkhan/customer-churn-predictor .
-```
-
-### 🚀 **Run the Docker Container**
-
-```bash
-docker run -p 8501:8501 muhammadumerkhan/customer-churn-predictor
-```
-
-> This will launch the Streamlit/ FastAPI interface on `http://localhost:8501` depending on your app entrypoint.
-
-### 📤 **Push to Docker Hub**
-
-First, log in to Docker:
-
-```bash
-docker login
-```
-
-Then push your image:
-
-```bash
-docker push muhammadumerkhan/customer-churn-predictor
-```
-
-### 📥 **Pull & Run from Docker Hub**
+- **Build**:
+  ```bash
+  docker build -t muhammadumerkhan/customer-churn-predictor .
+  ```
+- **Run**:
+  ```bash
+  docker run -p 8501:8501 muhammadumerkhan/customer-churn-predictor
+  ```
+- **Push**:
+  ```bash
+  docker push muhammadumerkhan/customer-churn-predictor
+  ```
+- **Pull**:
+  ```bash
+  docker pull muhammadumerkhan/customer-churn-predictor
+  ```
 
 Anyone can pull and run the app using:
 
