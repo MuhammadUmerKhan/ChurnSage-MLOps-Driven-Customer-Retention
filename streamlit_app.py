@@ -29,113 +29,150 @@ st.set_page_config(
 
 st.markdown("""
     <style>
-        /* Global Dark Theme Styles */
-        body {
-            background: url('https://i.imgur.com/3z8X5xB.png') no-repeat center center fixed;
+        /* Advanced Dark Theme Styles (No Black) */
+        .stApp {
+            background: linear-gradient(rgba(30, 27, 75, 0.9), rgba(30, 27, 75, 0.9)), url('https://assets.seobotai.com/dialzara.com/68043d036000445eb1a6537c-1745114118845.jpg');
             background-size: cover;
+            background-attachment: fixed;
+            color: #a5b4fc;
             font-family: 'Poppins', sans-serif;
-            color: #d1d5db;
         }
         .main-container {
-            background-color: rgba(36, 40, 59, 0.9);
-            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(55, 48, 163, 0.85), rgba(76, 29, 149, 0.85));
+            border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             margin: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            border: 2px solid #60a5fa;
+            backdrop-filter: blur(10px);
         }
         .main-title {
-            font-size: 3em;
+            font-size: 3.2em;
             font-weight: 700;
-            color: #60a5fa;
+            color: #c4b5fd;
             text-align: center;
-            margin-bottom: 30px;
-            letter-spacing: -0.5px;
-            animation: fadeIn 1s ease-in-out;
+            margin-bottom: 35px;
+            text-shadow: 0 0 12px rgba(196, 181, 253, 0.8);
+            animation: pulseGlow 2s ease-in-out infinite;
         }
         .section-title {
-            font-size: 2em;
+            font-size: 2.2em;
             font-weight: 600;
             color: #f9a8d4;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            text-align: left;
-            border-left: 5px solid #f9a8d4;
-            padding-left: 15px;
-            animation: slideIn 0.5s ease-in-out;
+            margin: 40px 0 20px;
+            text-shadow: 0 0 10px rgba(249, 168, 212, 0.8);
+            border-left: 6px solid #f9a8d4;
+            padding-left: 18px;
+            animation: slideInLeft 0.6s ease-in-out;
         }
         .content {
-            font-size: 1.1em;
-            color: #94a3b8;
-            line-height: 1.8;
-            text-align: justify;
+            font-size: 1.15em;
+            color: #a5b4fc;
+            line-height: 1.9;
         }
         .stButton>button {
-            background: linear-gradient(45deg, #7c3aed, #3b82f6);
-            color: #e5e7eb;
-            border-radius: 10px;
-            padding: 12px 30px;
+            background: linear-gradient(45deg, #ec4899, #7c3aed);
+            color: #fef08a;
+            border-radius: 12px;
+            padding: 14px 30px;
             font-weight: 600;
-            font-size: 1em;
+            font-size: 1.1em;
             border: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.8);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
         .stButton>button:hover {
-            background: linear-gradient(45deg, #6d28d9, #2563eb);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #db2777, #6d28d9);
+            box-shadow: 0 0 25px rgba(236, 72, 153, 1);
+            transform: scale(1.1);
+            color: #e0e7ff;
+        }
+        .stButton>button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(96, 165, 250, 0.2);
+            transition: all 0.6s ease;
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 50%;
+        }
+        .stButton>button:hover::after {
+            transform: translate(-50%, -50%) scale(1);
         }
         .stSelectbox, .stNumberInput, .stTextArea {
-            background-color: rgba(42, 46, 63, 0.95);
+            background: linear-gradient(135deg, rgba(55, 48, 163, 0.9), rgba(76, 29, 149, 0.9));
             border-radius: 10px;
             padding: 12px;
-            border: 1px solid #4b5563;
-            color: #d1d5db;
-            transition: all 0.3s ease;
+            border: 2px solid #60a5fa;
+            color: #a5b4fc;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
         }
         .stSelectbox:hover, .stNumberInput:hover, .stTextArea:hover {
-            border-color: #60a5fa;
-            box-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
+            border-color: #93c5fd;
+            box-shadow: 0 0 15px rgba(147, 197, 253, 0.7);
+            transform: translateY(-2px);
         }
         .stTabs [data-baseweb="tab"] {
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: 500;
-            color: #94a3b8;
-            padding: 15px 25px;
-            border-radius: 10px 10px 0 0;
-            transition: all 0.3s ease;
-            background-color: rgba(31, 34, 48, 0.95);
+            color: #a5b4fc;
+            padding: 15px 30px;
+            border-radius: 12px 12px 0 0;
+            background: linear-gradient(135deg, rgba(55, 48, 163, 0.9), rgba(76, 29, 149, 0.9));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
         }
         .stTabs [data-baseweb="tab"][aria-selected="true"] {
-            background: linear-gradient(45deg, #7c3aed, #3b82f6);
-            color: #e5e7eb;
+            background: linear-gradient(45deg, #ec4899, #7c3aed);
+            color: #fef08a;
             font-weight: 600;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
         }
         .stTabs [data-baseweb="tab"]:hover {
-            background-color: #374151;
-            color: #e5e7eb;
+            background: linear-gradient(135deg, #4c1d95, #6d28d9);
+            color: #e0e7ff;
+            transform: translateY(-2px);
         }
         .stDataFrame {
+            background: linear-gradient(135deg, rgba(55, 48, 163, 0.9), rgba(76, 29, 149, 0.9));
             border-radius: 10px;
-            overflow: hidden;
-            background-color: rgba(42, 46, 63, 0.95);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
         }
-        .stDataFrame table {
-            color: #d1d5db;
+        .dataframe th {
+            background: linear-gradient(45deg, #ec4899, #7c3aed) !important;
+            color: #fef08a !important;
+            font-weight: bold !important;
+        }
+        .dataframe tr:nth-child(even) {
+            background: rgba(76, 29, 149, 0.9);
+        }
+        .dataframe tr:nth-child(odd) {
+            background: rgba(55, 48, 163, 0.9);
+        }
+        .dataframe td {
+            color: #a5b4fc;
         }
         .footer {
-            font-size: 0.95em;
-            color: #9ca3af;
+            font-size: 1em;
+            color: #a5b4fc;
             margin-top: 50px;
             text-align: center;
-            padding: 25px;
-            background-color: rgba(31, 34, 48, 0.95);
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(55, 48, 163, 0.85), rgba(76, 29, 149, 0.85));
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            border: 2px solid #60a5fa;
+            backdrop-filter: blur(10px);
         }
         .footer a {
-            color: #60a5fa;
+            color: #93c5fd;
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
@@ -146,62 +183,86 @@ st.markdown("""
         }
         /* Custom input labels */
         .stSelectbox label, .stNumberInput label, .stTextArea label {
+            color: #fef08a;
             font-weight: 500;
-            color: #60a5fa;
             margin-bottom: 10px;
         }
-        /* Error and Success Messages */
+        /* Alerts */
         .stAlert {
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            background-color: rgba(47, 49, 66, 0.95);
-            color: #f3f4f6;
-        }
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideIn {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        /* Home Page Card Styling */
-        .home-card {
-            background: linear-gradient(135deg, rgba(42, 46, 63, 0.95), rgba(55, 65, 81, 0.95));
             border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, rgba(55, 48, 163, 0.9), rgba(76, 29, 149, 0.9));
+            color: #a5b4fc;
+            border: 2px solid #60a5fa;
+            backdrop-filter: blur(8px);
+        }
+        .warning, .stAlert[role="alert"] {
+            color: #f87171 !important;
+            font-weight: bold;
+        }
+        .success {
+            color: #34d399 !important;
+            font-weight: bold;
+        }
+        /* Home Page Card */
+        .home-card {
+            background: linear-gradient(135deg, rgba(55, 48, 163, 0.9), rgba(76, 29, 149, 0.9));
+            border-radius: 15px;
             padding: 30px;
             margin: 20px 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 1.2s ease-in-out;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            border: 2px solid #60a5fa;
+            backdrop-filter: blur(10px);
+            animation: scaleIn 0.8s ease-in-out;
         }
         .home-card h2 {
             color: #f9a8d4;
-            font-size: 2em;
-            margin-bottom: 15px;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(249, 168, 212, 0.8);
         }
         .home-card p {
-            color: #d1d5db;
-            font-size: 1.1em;
-            line-height: 1.8;
+            color: #a5b4fc;
+            font-size: 1.15em;
+            line-height: 1.9;
         }
         .home-card ul {
-            color: #94a3b8;
-            font-size: 1.1em;
-            line-height: 1.8;
-            padding-left: 20px;
+            color: #a5b4fc;
+            font-size: 1.15em;
+            line-height: 1.9;
+            padding-left: 25px;
         }
         .home-card ul li::marker {
             color: #60a5fa;
         }
-        /* Sidebar Styling */
-        .css-1d391kg {
-            background-color: rgba(31, 34, 48, 0.95);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        /* Sidebar */
+        .stSidebar {
+            background: linear-gradient(135deg, rgba(55, 48, 163, 0.9), rgba(76, 29, 149, 0.9));
+            color: #60a5fa;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
         }
-        .css-1d391kg .css-1v3fvcr {
-            color: #d1d5db;
+        .stSidebar h3 {
+            color: #fef08a;
+            text-shadow: 0 0 8px rgba(254, 240, 138, 0.8);
+        }
+        .stSidebar p {
+            color: #a5b4fc;
+        }
+        /* Animations */
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 10px rgba(196, 181, 253, 0.8); }
+            50% { text-shadow: 0 0 20px rgba(196, 181, 253, 1); }
+            100% { text-shadow: 0 0 10px rgba(196, 181, 253, 0.8); }
+        }
+        @keyframes slideInLeft {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
     </style>
 """, unsafe_allow_html=True)
@@ -315,7 +376,7 @@ with tab2:
         else:
             try:
                 # ✅ Load LLM
-                llm = langchain_groq.ChatGroq(groq_api_key=config.GROK_API_KEY, model_name="qwen-qwq-32b")
+                llm = langchain_groq.ChatGroq(groq_api_key=config.GROQ_API_KEY, model_name="qwen-qwq-32b")
 
                 # ✅ Construct prompt
                 prompt = f"""
