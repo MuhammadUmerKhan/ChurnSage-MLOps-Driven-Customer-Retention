@@ -29,18 +29,209 @@ st.set_page_config(
 
 st.markdown("""
     <style>
-        .main-title { font-size: 2.5em; font-weight: bold; color: #2C3E50; text-align: center; margin-bottom: 20px; }
-        .section-title { font-size: 1.8em; color: #3498DB; font-weight: bold; margin-top: 30px; text-align: left; }
-        .content { font-size: 1em; color: #7F8C8D; text-align: justify; line-height: 1.6; }
-        .footer { font-size: 14px; color: #95A5A6; margin-top: 20px; text-align: center; }
+        /* Global Dark Theme Styles */
+        body {
+            background: url('https://i.imgur.com/3z8X5xB.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Poppins', sans-serif;
+            color: #d1d5db;
+        }
+        .main-container {
+            background-color: rgba(36, 40, 59, 0.9);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            margin: 20px;
+        }
+        .main-title {
+            font-size: 3em;
+            font-weight: 700;
+            color: #60a5fa;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .section-title {
+            font-size: 2em;
+            font-weight: 600;
+            color: #f9a8d4;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: left;
+            border-left: 5px solid #f9a8d4;
+            padding-left: 15px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        .content {
+            font-size: 1.1em;
+            color: #94a3b8;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        .stButton>button {
+            background: linear-gradient(45deg, #7c3aed, #3b82f6);
+            color: #e5e7eb;
+            border-radius: 10px;
+            padding: 12px 30px;
+            font-weight: 600;
+            font-size: 1em;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .stButton>button:hover {
+            background: linear-gradient(45deg, #6d28d9, #2563eb);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        .stSelectbox, .stNumberInput, .stTextArea {
+            background-color: rgba(42, 46, 63, 0.95);
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #4b5563;
+            color: #d1d5db;
+            transition: all 0.3s ease;
+        }
+        .stSelectbox:hover, .stNumberInput:hover, .stTextArea:hover {
+            border-color: #60a5fa;
+            box-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
+        }
+        .stTabs [data-baseweb="tab"] {
+            font-size: 1.2em;
+            font-weight: 500;
+            color: #94a3b8;
+            padding: 15px 25px;
+            border-radius: 10px 10px 0 0;
+            transition: all 0.3s ease;
+            background-color: rgba(31, 34, 48, 0.95);
+        }
+        .stTabs [data-baseweb="tab"][aria-selected="true"] {
+            background: linear-gradient(45deg, #7c3aed, #3b82f6);
+            color: #e5e7eb;
+            font-weight: 600;
+        }
+        .stTabs [data-baseweb="tab"]:hover {
+            background-color: #374151;
+            color: #e5e7eb;
+        }
+        .stDataFrame {
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(42, 46, 63, 0.95);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .stDataFrame table {
+            color: #d1d5db;
+        }
+        .footer {
+            font-size: 0.95em;
+            color: #9ca3af;
+            margin-top: 50px;
+            text-align: center;
+            padding: 25px;
+            background-color: rgba(31, 34, 48, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .footer a {
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: #f9a8d4;
+            text-decoration: underline;
+        }
+        /* Custom input labels */
+        .stSelectbox label, .stNumberInput label, .stTextArea label {
+            font-weight: 500;
+            color: #60a5fa;
+            margin-bottom: 10px;
+        }
+        /* Error and Success Messages */
+        .stAlert {
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            background-color: rgba(47, 49, 66, 0.95);
+            color: #f3f4f6;
+        }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        /* Home Page Card Styling */
+        .home-card {
+            background: linear-gradient(135deg, rgba(42, 46, 63, 0.95), rgba(55, 65, 81, 0.95));
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.2s ease-in-out;
+        }
+        .home-card h2 {
+            color: #f9a8d4;
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        .home-card p {
+            color: #d1d5db;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+        .home-card ul {
+            color: #94a3b8;
+            font-size: 1.1em;
+            line-height: 1.8;
+            padding-left: 20px;
+        }
+        .home-card ul li::marker {
+            color: #60a5fa;
+        }
+        /* Sidebar Styling */
+        .css-1d391kg {
+            background-color: rgba(31, 34, 48, 0.95);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .css-1d391kg .css-1v3fvcr {
+            color: #d1d5db;
+        }
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="main-title">📊 Welcome to the Customer Churn Prediction Tool 📊</div>', unsafe_allow_html=True)
+# Create tabs including the Home tab
+tab0, tab1, tab2, tab3, tab4 = st.tabs(["🏠 Home", "🔍 Predict Churn", "💬 LLM Review Analysis", "📊 View Stored Data", "📂 Upload CSV for Bulk Prediction"])
+
+# Home Landing Page
+with tab0:
+    st.markdown('<div class="main-title">📊 Welcome to the Customer Churn Prediction Dashboard</div>', unsafe_allow_html=True)
+    st.markdown("""
+        <div class="home-card">
+            <h2>About This Project</h2>
+            <p>
+                The Customer Churn Prediction Dashboard is a powerful tool designed to help telecom companies predict customer churn with precision and ease. Leveraging advanced machine learning models and large language models (LLMs), this application provides actionable insights to retain customers and optimize business strategies.
+            </p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>🔍 <strong>Single Customer Prediction:</strong> Input customer details to predict churn likelihood instantly.</li>
+                <li>💬 <strong>LLM-Powered Review Analysis:</strong> Analyze customer feedback to gauge sentiment and churn risk.</li>
+                <li>📊 <strong>Data Visualization:</strong> View stored predictions and feedback in an intuitive format.</li>
+                <li>📂 <strong>Bulk Predictions:</strong> Upload CSV files for batch churn predictions.</li>
+            </ul>
+            <p>
+                Built with MLflow for model management, LangChain for LLM integration, and Streamlit for a seamless user experience, this dashboard is your go-to solution for customer retention analytics.
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
 
 # Feature Input Section
-tab1, tab2, tab3, tab4 = st.tabs(["🔍 Predict Churn", "💬 LLM Review Analysis", "📊 View Stored Data", "📂 Upload CSV for Bulk Prediction"])
-
 with tab1:
     st.markdown('<div class="section-title">🔍 Predict Customer Churn</div>', unsafe_allow_html=True)
     
@@ -102,7 +293,7 @@ with tab1:
             try:
                 database.save_customer_data(mapped_data, "Yes" if churn_prediction == "Customer likely to leave" else "No")
             except Exception as e:
-                st.error(f"�� Error storing prediction in DB: {str(e)}")
+                st.error(f"⚠️ Error storing prediction in DB: {str(e)}")
 
             # ✅ Display result
             if prediction[0] == 1:
@@ -184,7 +375,6 @@ with tab3:
                               columns=["ID", "User Feedback", "Timestamp", "LLM Prediction", "LLM Reasoning"]), 
                                 hide_index=True)
 
-
 # 🚀 TAB 4: Bulk Prediction from CSV
 with tab4:
     st.markdown('<div class="section-title">📂 Bulk CSV Prediction</div>', unsafe_allow_html=True)
@@ -227,6 +417,6 @@ with tab4:
 # ✅ Footer
 st.markdown("""
     <div class="footer">
-        Developed by <a href="https://portfolio-sigma-mocha-67.vercel.app/" target="_blank" style="color: #2980B9;">Muhammad Umer Khan</a>. Powered by MLflow, LangChain, and Streamlit. 🚀
+        Developed by <a href="https://portfolio-sigma-mocha-67.vercel.app/" target="_blank">Muhammad Umer Khan</a>. Powered by MLflow, LangChain, and Streamlit. 🚀
     </div>
 """, unsafe_allow_html=True)
