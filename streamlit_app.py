@@ -376,7 +376,7 @@ with tab2:
         else:
             try:
                 # ✅ Load LLM
-                llm = langchain_groq.ChatGroq(groq_api_key=config.GROQ_API_KEY, model_name="qwen-qwq-32b")
+                llm = langchain_groq.ChatGroq(groq_api_key=config.GROQ_API_KEY, model_name="openai/gpt-oss-20b")
 
                 # ✅ Construct prompt
                 prompt = f"""
